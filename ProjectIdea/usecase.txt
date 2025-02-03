@@ -1,0 +1,57 @@
+Actor1- Superadmin
+Actor2- Admin
+Actor3- User
+Actor4- Guest
+
+
+1. SuperAdmin
+
+	1.1. The SuperAdmin can accept requests for new admins.
+	1.2. The SuperAdmin can approve/reject/block admins.
+	1.3. The SuperAdmin will have a dashboard for managing admins and can access all details about admins.
+	1.4. The SuperAdmin can view the revenue generation dashboard.
+	1.5. The SuperAdmin can manage advertisements.
+
+2. Admin
+
+	2.1. The Admin can send a request form to register their theater.
+	2.2. The Admin can log in to the portal using the Admin ID and password.
+	2.3. The Admin can manage their theater and screens.
+		2.3.1. The Admin can add movies.
+		2.3.2. The Admin can add/delete scheduled shows.
+		2.3.3. The Admin can manage screens.
+		2.3.4. The Admin can set prices.
+		2.3.5. The Admin can add discount coupons.
+	2.4. The Admin can access the dashboard.
+	2.5. The Admin can generate revenue reports.
+		2.5.1 The Admin can access Sells report.
+		2.5.2 The Admin can access Shows report.
+		2.5.1 The admin can access Transection report.
+		
+
+3. User
+
+	3.1. The User can create an account.
+	3.2. The User can log in using the User ID and password.
+	3.3. The User can select a location on the homepage.
+	3.4. The User can access all the movies and theaters at the given location.
+	3.5. The User can filter movies based on theater, language, and type.
+	3.6. The User can select seats from the seat layout and book them.
+	3.7. The User can add food according to the theater.
+	3.8. The User can apply discount offers.
+	3.9. The User will receive the ticket in PDF form after payment.
+	3.10. The User will receive a notification for the booked ticket.
+	3.11. The User can access and edit their profile details.
+	3.12. The User can access their order history in the profile section.
+	3.13. The User can rate the theater and movie.
+
+4. Guest
+
+	4.1. The Guest can select a location on the homepage.
+	4.2. The Guest can access all the movies and theaters at the given location.
+
+
+	
+
+
+	
