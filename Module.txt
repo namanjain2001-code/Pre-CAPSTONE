@@ -1,42 +1,35 @@
-User Mannegment
-	superAdmin login
-	userlogin/create
-	admin login/create
+1.User Management
 
-Admin manegment
-	Request form
-	aprove/deny
-	SuparAdminDashboard
-	revenueManegment
-	Block/Accept admin
+SuperAdmin Login 					(Role, Users, Users_Role)
+User Login/Create
+Admin Login/Create
 
-Theater manegment
-	ScreenAdd
-	movieADD
-	showmanegment
-	AdminDashboard
-	
-Transection manegment
-	Booking
-	payment
-	rating
-	notification
+2.Admin Management
+Request Form								Theater
+Approve/Deny
+SuperAdmin Dashboard
+Revenue Management
+Block/Accept Admin
 
-UserService
-	homepage
-	movieSearchpage
-	bookingLayout
-	seatselection
-	tickets
-	mybooking
+3.Theater Management
+Screen Add
+Movie Add 							(Screen, Movie, Show)
+Show Management
+Admin Dashboard
+Transaction Management
 
-RevenueManegment
-	revenueForSuperAdmin
-	revenueForAdmin
-	Cafateria
-	advertisement
+4.Booking 						(Booking, Rating, Payment, Transaction,notification)
+ Payment
+ Rating
+ Notification
+ User Service
 
+Homepage
+Movie Search Page 									(Seat)
+Booking Layout
+Seat Selection
+Tickets
+My Booking
 
-	
 	
 	
