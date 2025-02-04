@@ -24,6 +24,7 @@ Transaction Management
  Notification
  User Service
 
+5. User Services  (Mehak and Prateek)
 Homepage
 Movie Search Page 									(Seat)
 Booking Layout
