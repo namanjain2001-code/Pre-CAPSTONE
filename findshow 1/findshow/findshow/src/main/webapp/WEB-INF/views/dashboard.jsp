@@ -1,3 +1,5 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -8,7 +10,7 @@
 </head>
 <body>
     <h2>Welcome to the Admin Dashboard</h2>
-    <p>You're logged in as: ${name}</p>
+	<p>Welcome, <sec:authentication property="name"/>!</p>
     <a href="/logout">Logout</a>
 </body>
 </html>

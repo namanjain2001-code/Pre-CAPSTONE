@@ -22,8 +22,6 @@ public class TheatreController {
 	public String getTheatrePage(Model model) {
 		Theatre theatre=new Theatre();
 		model.addAttribute(theatre);
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.print(authentication.getPrincipal());
 		return "theatre";
 	}
 	@PostMapping("/theatre")
