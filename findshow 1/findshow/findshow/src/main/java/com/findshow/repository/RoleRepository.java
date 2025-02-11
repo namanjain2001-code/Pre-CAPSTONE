@@ -8,5 +8,5 @@ import com.findshow.model.Role.RoleName;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role,Integer> {
-	Role findByRoleName(String roleNameString);
+	Role findByRoleName(RoleName roleName);
 }

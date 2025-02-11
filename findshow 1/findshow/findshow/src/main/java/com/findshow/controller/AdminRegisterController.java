@@ -1,6 +1,7 @@
 package com.findshow.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +14,34 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.findshow.dto.UserDto;
 import com.findshow.model.Role;
 import com.findshow.model.Role.RoleName;
 import com.findshow.model.Users;
 import com.findshow.service.RoleService;
 import com.findshow.service.UserService;
 
+
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/api/admin")
+public class AdminRegisterController {
 	@Autowired
-    private UserService userService;
-    @Autowired
+	UserService userService;
+	@Autowired
     private RoleService roleService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+	
+	
+	
+	@RequestMapping("/viewadmins")
+	public String viewAdmins(Model model) {
+		List<UserDto> users=userService.findAllUsers();
+		model.addAttribute("users",users);
+		return "manageadmins";
+	}
+    
     @GetMapping("/register")
     public String registerUser(Model model){
     	Users user=new Users();
@@ -44,15 +57,14 @@ public class UserController {
     		return "register";
     	}
     	Set<Role> roles=new HashSet<>();
-    	roles.add(roleService.getRoleName(RoleName.ROLE_USER));
+    	roles.add(roleService.getRoleName(RoleName.ROLE_ADMIN));
     	user.setRoles(roles);
     	userService.saveUser(user);
-        return "redirect:/user/dashboard";
+        return "redirect:/admin/dashboard";
     }
     @GetMapping("/dashboard")
     public String getDashboard(Principal principal ){
     	String userName=principal.getName();
     	return "dashboard";
     }
-    
 }
