@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -51,15 +53,23 @@ public class SecurityConfig {
 	        auth.authenticationProvider(authenticationProvider());
 	    }
 
-
+	    @Bean
+	    static RoleHierarchy roleHierarchy() {
+	        return RoleHierarchyImpl.withDefaultRolePrefix()
+	            .role("SUPERADMIN").implies("ADMIN")
+	            .role("ADMIN").implies("USER")
+	            .build();
+	    }
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	    http  // Disable CSRF protection if not using it
 	        .authorizeHttpRequests((requests) -> requests
-	            .requestMatchers("/**","/register","/register/**","/register/save").permitAll()  // Allow login
-	            .requestMatchers("/admin").hasRole("ADMIN")  // Allow login
-//	            .anyRequest().authenticated() // Require authentication for other pages
+	            .requestMatchers("/admin/**").hasRole("ADMIN")  // Allow login
+	            .requestMatchers("/superadmin/**").hasRole("SUPERADMIN")
+	            .requestMatchers("/user/**").hasRole("USER")
+	            .requestMatchers("/**").permitAll()
+	            .anyRequest().authenticated() // Require authentication for other pages
 	        )
 //	    .csrf(AbstractHttpConfigurer::disable)
 	    .sessionManagement(session -> session
@@ -68,7 +78,7 @@ public class SecurityConfig {
 	        .formLogin((form) -> form
 	        		.defaultSuccessUrl("/",true)  // Define login page for form-based authentication
 	        		)
-	        .logout((logout) -> logout.logoutSuccessUrl("/"));
+	        .logout((logout) -> logout.logoutSuccessUrl("/").invalidateHttpSession(true));
 	    return http.build();
 	}
 	
