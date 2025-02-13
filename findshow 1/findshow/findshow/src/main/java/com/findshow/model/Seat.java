@@ -11,20 +11,27 @@ public class Seat {
 	@Column(name = "seat_id")
 	private int seatId;
 
-	@Column(name = "seat_number", nullable = false)
-	private String seatNumber;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "seat_type", nullable = false)
-	private SeatType seatType;
+    @Column(name = "seat_number")
+    private String seatNumber;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "seat_type")
+    private SeatType seatType;
+
 
 	public enum SeatType {
 		NORMAL, SOFA, RECLINER
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "screen_id", nullable = false)
-	private Screen screen;
+
+    
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private Users user;
+    
+    
+
 
 	@ManyToOne
 	@JoinColumn(name = "show_id", nullable = false)
@@ -51,18 +58,6 @@ public class Seat {
 		return seatType;
 	}
 
-	public void setSeatType(SeatType seatType) {
-		this.seatType = seatType;
-	}
-
-	public Screen getScreen() {
-		return screen;
-	}
-
-	public void setScreen(Screen screen) {
-		this.screen = screen;
-	}
-
 	public Show getShow() {
 		return show;
 	}
@@ -70,4 +65,15 @@ public class Seat {
 	public void setShow(Show show) {
 		this.show = show;
 	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+   
+
 }

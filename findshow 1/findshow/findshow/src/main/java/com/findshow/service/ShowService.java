@@ -15,12 +15,5 @@ public class ShowService {
     private ShowRepository showRepository;
 
     // Fetch show by screen number, movie name, and show date
-    public Show getShowByScreenNumberAndMovieNameAndShowDate(int screenNumber, String movieName, LocalDateTime showDate) {
-        return showRepository.findByScreen_ScreenNumberAndMovie_MovieNameAndShowDate(screenNumber, movieName, showDate);
-    }
-
-    // Fetch show by screen id
-    public Show getShowByScreen(Screen screen) {
-        return showRepository.findByScreen_ScreenId(screen);
-    }
+   
 }

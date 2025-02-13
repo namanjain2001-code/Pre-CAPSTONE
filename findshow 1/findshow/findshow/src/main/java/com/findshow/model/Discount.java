@@ -15,30 +15,30 @@ public class Discount {
     @Column(name = "discount_id")
     private int discountId;
 
-    @Column(name = "discount_name", nullable = false)
+    @Column(name = "discount_name")
     private String discountName;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "discount_type", nullable = false)
+    @Column(name = "discount_type")
     private DiscountType discountType;
 
     public enum DiscountType {
         PERCENTAGE, FIXED
     }
 
-    @Column(name = "discount_value", nullable = false)
+    @Column(name = "discount_value")
     private BigDecimal discountValue;
 
-    @Column(name = "valid_from", nullable = false)
+    @Column(name = "valid_from")
     private LocalDate validFrom;
 
-    @Column(name = "valid_until", nullable = false)
+    @Column(name = "valid_until")
     private LocalDate validUntil;
 
     @Column(name = "min_booking_amount",columnDefinition="DECIMAL(10,2)")
     private double minBookingAmount;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active")
     private boolean isActive;
 
     @ManyToOne

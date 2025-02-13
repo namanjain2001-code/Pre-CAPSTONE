@@ -8,5 +8,6 @@ import com.findshow.model.Movie;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     Movie findByMovieName(String movieName);
+
 }
 

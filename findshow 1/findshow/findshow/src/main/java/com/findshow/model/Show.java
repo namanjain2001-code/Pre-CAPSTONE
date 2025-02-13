@@ -26,10 +26,6 @@ public class Show {
     @Column(name = "show_date", nullable = false)
     private LocalDateTime showDate; // You can use a `Date` type or `LocalDateTime` if needed
 
-    @OneToMany(mappedBy = "show")
-    private List<Booking> bookings;
-    
-    
 
     // Getters and Setters
     public int getShowId() {
@@ -64,11 +60,4 @@ public class Show {
         this.showDate = showDate;
     }
 
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
-    }
 }
