@@ -16,7 +16,12 @@ public class Screen {
 
     @Column(name = "screen_number")
     private int screenNumber;
+<<<<<<< HEAD
     
+=======
+    @Column(name ="screen_capacity", nullable = false)
+    private int screenCapacity;
+>>>>>>> 93c8e3ed851606b401030f7005618187264cb3a0
     @ManyToOne
     @JoinColumn(name = "theatre_id")
     private Theatre theatre;
@@ -67,4 +72,26 @@ public class Screen {
     }
 
 
+<<<<<<< HEAD
+=======
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
+    }
+
+    public List<Show> getShows() {
+        return shows;
+    }
+
+    public void setShows(List<Show> shows) {
+        this.shows = shows;
+    }
+
+	public int getScreenCapacity() {
+		return screenCapacity;
+	}
+
+	public void setScreenCapacity(int screenCapacity) {
+		this.screenCapacity = screenCapacity;
+	}
+>>>>>>> 93c8e3ed851606b401030f7005618187264cb3a0
 }
