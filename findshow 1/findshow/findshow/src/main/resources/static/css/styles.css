@@ -1,0 +1,115 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fc;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full viewport height */
+    text-align: center;
+}
+
+h2 {
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+label {
+    font-size: 18px;  /* Increased font size */
+    color: #333;
+    display: inline-block;
+    width: 150px;  /* Consistent width to make sure all labels align on the same line */
+    text-align: left;  /* Align the label text to the left */
+    margin-bottom: 10px; /* Space below each label */
+}
+
+input, button {
+    width: 70%;  /* Reduced width of input fields */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input:focus, button:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:active {
+    background-color: #1abc9c;
+}
+
+.back-to-login {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.back-to-login a {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-to-login a:hover {
+    text-decoration: underline;
+}
+
+/* Label and input field on the same line */
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;  /* Reduced margin to make it more compact */
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 70%;  /* Reduced width of input fields */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin-top: 30px;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    label {
+        font-size: 16px;  /* Slightly reduced font size for smaller screens */
+    }
+
+    input, button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
