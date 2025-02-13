@@ -15,7 +15,8 @@ public class Screen {
 
     @Column(name = "screen_number", nullable = false)
     private int screenNumber;
-
+    @Column(name ="screen_capacity", nullable = false)
+    private int screenCapacity;
     @ManyToOne
     @JoinColumn(name = "theatre_id")
     private Theatre theatre;
@@ -66,4 +67,12 @@ public class Screen {
     public void setShows(List<Show> shows) {
         this.shows = shows;
     }
+
+	public int getScreenCapacity() {
+		return screenCapacity;
+	}
+
+	public void setScreenCapacity(int screenCapacity) {
+		this.screenCapacity = screenCapacity;
+	}
 }
