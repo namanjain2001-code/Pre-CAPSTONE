@@ -53,15 +53,15 @@
 <div class="container">
     <h2>Add New Theatre</h2>
 
-    <form:form method="POST" modelAttribute="theatre" action="/theatre">
+    <form:form method="POST" modelAttribute="theatre" action="/theatre/add">
         <div class="form-group">
             <label for="theatreName">Theatre Name</label>
             <form:input path="theatreName" id="theatreName" required="true"/>
         </div>
 
         <div class="form-group">
-            <label for="location">Location</label>
-            <form:input path="location" id="location" required="true"/>
+            <label for="theatreLocation">Location</label>
+            <form:input path="theatreLocation" id="TheatreLocation" required="true"/>
         </div>
 
         <button type="submit">Add Theatre</button>
@@ -70,4 +70,3 @@
 
 </body>
 </html>
-
