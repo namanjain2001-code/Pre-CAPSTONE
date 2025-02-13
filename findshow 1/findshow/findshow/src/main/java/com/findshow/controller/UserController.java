@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import jakarta.validation.Valid;
 
 @Controller
@@ -65,6 +64,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.findshow.model.Role;
 import com.findshow.model.Role.RoleName;
@@ -73,6 +73,7 @@ import com.findshow.service.RoleService;
 import com.findshow.service.UserService;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -106,17 +107,17 @@ public class UserController {
         return "redirect:/user/dashboard";  // Redirect to dashboard after successful registration
     }
 
-<<<<<<< HEAD
-    @GetMapping("/dashboard")
-    public String getDashboard(Principal principal ){
-    	String userName=principal.getName();
-    	return "dashboard";
-=======
-    @GetMapping("/user/dashboard")
-    public String getDashboard() {
-        return "dashboard";  // Return the dashboard page
->>>>>>> 93c8e3ed851606b401030f7005618187264cb3a0
-    }
+//<<<<<<< HEAD
+//    @GetMapping("/dashboard")
+//    public String getDashboard(Principal principal ){
+//    	String userName=principal.getName();
+//    	return "dashboard";
+//=======
+//    @GetMapping("/user/dashboard")
+//    public String getDashboard() {
+//        return "dashboard";  // Return the dashboard page
+//>>>>>>> 93c8e3ed851606b401030f7005618187264cb3a0
+//    }
     
     // Custom Login Page
     @GetMapping("/login")
