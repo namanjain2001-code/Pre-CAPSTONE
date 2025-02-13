@@ -12,7 +12,7 @@
                 <th>ID</th>
                 <th>Screen Name</th>
                 <th>Capacity</th>
-                <th>Theater</th>
+                <th>Theatre</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -22,7 +22,7 @@
                     <td>${screen.id}</td>
                     <td>${screen.screenName}</td>
                     <td>${screen.capacity}</td>
-                    <td>${screen.theater.name}</td>
+                    <td>${screen.theatre.name}</td>
                     <td>
                         <a href="/admin/screen/edit/${screen.id}">Edit</a> | 
                         <a href="/admin/screen/delete/${screen.id}">Delete</a>

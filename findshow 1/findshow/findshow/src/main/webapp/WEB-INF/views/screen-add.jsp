@@ -88,7 +88,7 @@
         <!-- Theatre Selection -->
         <div class="form-group">
             <label for="theatre">Theatre</label>
-            <form:select path="theatre.id" id="theatre" required="true">
+            <form:select path="theatreId" id="theatre" required="true">
                 <c:forEach items="${theatres}" var="theatre">
                     <option value="${theatre.theatreId}">${theatre.theatreName}</option>
                 </c:forEach>
@@ -104,7 +104,7 @@
 </div>
 
 <div class="footer">
-    <p>&copy; 2025 Movie Booking System</p>
+    <p>&copy; Hardik and Yashi Part (Girish Group)</p>
 </div>
 
 </body>

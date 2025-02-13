@@ -16,45 +16,45 @@
 <form:form modelAttribute="movie" method="POST" action="/admin/movie/edit/${movie.movieId}">
     <table>
         <tr>
-            <td><label for="movie_name">Movie Name:</label></td>
-            <td><form:input path="movieName" id="movie_name" /></td>
+            <td><label for="movieName">Movie Name:</label></td>
+            <td><form:input path="movieName" id="movieName" /></td>
         </tr>
         <tr>
-            <td><label for="movie_description">Description:</label></td>
-            <td><form:textarea path="movieDescription" id="movie_description"></form:textarea></td>
+            <td><label for="movieDescription">Description:</label></td>
+            <td><form:textarea path="movieDescription" id="movieDescription"></form:textarea></td>
         </tr>
         <tr>
-            <td><label for="movie_duration">Duration (Minutes):</label></td>
-            <td><form:input path="movieDuration" id="movie_duration" type="number" min="1" /></td>
+            <td><label for="movieDuration">Duration (Minutes):</label></td>
+            <td><form:input path="movieDuration" id="movieDuration" type="number" min="1" /></td>
         </tr>
         <tr>
-            <td><label for="movie_rated">Rated:</label></td>
-            <td><form:input path="movieRated" id="movie_rated" /></td>
+            <td><label for="movieRated">Rated:</label></td>
+            <td><form:input path="movieRated" id="movieRated" /></td>
         </tr>
         <tr>
-            <td><label for="movie_languages">Languages:</label></td>
-            <td><form:input path="movieLanguages" id="movie_languages" /></td>
+            <td><label for="movieLanguages">Languages:</label></td>
+            <td><form:input path="movieLanguages" id="movieLanguages" /></td>
         </tr>
         <tr>
-            <td><label for="movie_genres">Genres:</label></td>
-            <td><form:input path="movieGenres" id="movie_genres" /></td>
+            <td><label for="movieGenres">Genres:</label></td>
+            <td><form:input path="movieGenres" id="movieGenres" /></td>
         </tr>
         <tr>
-            <td><label for="movie_thumbnail">Thumbnail URL:</label></td>
-            <td><form:input path="movieThumbnail" id="movie_thumbnail" /></td>
+            <td><label for="movieThumbnail">Thumbnail URL:</label></td>
+            <td><form:input path="movieThumbnail" id="movieThumbnail" /></td>
         </tr>
         <tr>
-            <td><label for="movie_type">Movie Type:</label></td>
+            <td><label for="movieType">Movie Type:</label></td>
             <td>
                 <form:select path="movieType">
                     <form:option value="IMAX">IMAX</form:option>
-                    <form:option value="REGULAR">Regular</form:option>
+                    <form:option value="regular">Regular</form:option>
                 </form:select>
             </td>
         </tr>
         <tr>
-            <td><label for="movie_release_date">Release Date:</label></td>
-            <td><form:input path="movieReleaseDate" id="movie_release_date" type="date" /></td>
+            <td><label for="movieReleaseDate">Release Date:</label></td>
+            <td><form:input path="movieReleaseDate" id="movieReleaseDate" type="date" /></td>
         </tr>
     </table>
     

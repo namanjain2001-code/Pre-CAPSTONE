@@ -53,12 +53,27 @@
 <div class="container">
     <h2>Edit Theatre</h2>
 
-    <form:form method="POST" modelAttribute="theatre" action="/theatre/edit/${theatre.theatreId}">
+    <form:form method="POST" modelAttribute="theatre" action="/admin/theatre/edit/${theatre.theatreId}">
         <div class="form-group">
             <label for="theatreName">Theatre Name</label>
-            <form:input path="theatreName" id="theatreName" required="true" value="${theatre.theatreName}"/>
+            <form:input path="theatreName" id="theatreName" value="${theatre.theatreName}" required="true"/>
         </div>
 
         <div class="form-group">
-            <label for="location">Location</label>
-            <form:input path="location"
+            <label for="theatreLocation">Location</label>
+            <form:input path="theatreLocation" id="theatreLocation" value="${theatre.theatreLocation}" required="true"/>
+        </div>
+
+        <div class="form-group">
+            <label for="noOfScreens">Number of Screens</label>
+            <form:input path="noOfScreens" id="noOfScreens" value="${theatre.noOfScreens}" required="true" type="number"/>
+        </div>
+
+        <button type="submit">Save Changes</button>
+    </form:form>
+
+</div>
+
+</body>
+</html>
+

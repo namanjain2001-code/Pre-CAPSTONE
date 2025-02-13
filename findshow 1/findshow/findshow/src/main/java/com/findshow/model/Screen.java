@@ -28,6 +28,20 @@ public class Screen {
     private List<Show> shows;
 
     // Getters and Setters
+    public int getTheatreId() {
+        return theatre != null ? theatre.getTheatreId() : 0; 
+    }
+
+    public void setTheatreId(int theatreId) {
+        if (this.theatre != null) {
+            this.theatre.setTheatreId(theatreId); 
+        }
+    }
+    
+    
+    
+    
+    
     public int getScreenId() {
         return screenId;
     }

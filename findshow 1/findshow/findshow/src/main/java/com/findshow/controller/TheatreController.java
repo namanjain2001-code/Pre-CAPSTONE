@@ -38,13 +38,13 @@ public class TheatreController {
 
     // Show all theatres
     @GetMapping("/theatres")
-    public String listTheatres(@ModelAttribute Model model ) {
+    public String listTheatres( Model model ) {
     	model.addAttribute("theatres", theatreRepository.findAll());
         return "theatre-list";  // View name
     }
 
     // Add new theatre
-    @GetMapping("/theatre/add")
+    @RequestMapping("/theatre/add")
     public String showAddTheatreForm(Model model) {
         model.addAttribute("theatre", new Theatre());
         return "theatre-add";  // View name

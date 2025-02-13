@@ -21,6 +21,11 @@ public class Theatre {
     
     @Column(name="theatre_screens")
     private int noOfScreens;
+    
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+//    private Users user;
+    
 
     @OneToMany(mappedBy = "theatre")
     private List<Screen> screens;

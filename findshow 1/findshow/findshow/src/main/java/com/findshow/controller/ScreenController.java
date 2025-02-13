@@ -31,6 +31,7 @@ public class ScreenController {
     public String showAddScreenForm(Model model) {
         model.addAttribute("screen", new Screen());
         model.addAttribute("theaters", theaterRepository.findAll());
+        System.out.println(theaterRepository.findAll());
         return "screen-add";  // View name
     }
 
