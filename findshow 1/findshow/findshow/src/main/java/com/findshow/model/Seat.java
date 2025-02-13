@@ -2,15 +2,15 @@ package com.findshow.model;
 
 import jakarta.persistence.*;
 
-// Seat POJO class
 @Entity
 @Table(name = "seats")
 public class Seat {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "seat_id")
-    private int seatId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "seat_id")
+	private int seatId;
+
 
     @Column(name = "seat_number")
     private String seatNumber;
@@ -19,13 +19,12 @@ public class Seat {
     @Column(name = "seat_type")
     private SeatType seatType;
 
-    public enum SeatType {
-        NORMAL, SOFA, RECLINER
-    }
 
-    @ManyToOne
-    @JoinColumn(name = "show_id")
-    private Show show;
+	public enum SeatType {
+		NORMAL, SOFA, RECLINER
+	}
+
+
     
     @ManyToOne
     @JoinColumn(name="user_id")
@@ -33,30 +32,31 @@ public class Seat {
     
     
 
-    // Getters and Setters
-    public int getSeatId() {
-        return seatId;
-    }
 
-    public void setSeatId(int seatId) {
-        this.seatId = seatId;
-    }
+	@ManyToOne
+	@JoinColumn(name = "show_id", nullable = false)
+	private Show show;
 
-    public String getSeatNumber() {
-        return seatNumber;
-    }
+	// Getters and Setters
+	public int getSeatId() {
+		return seatId;
+	}
 
-    public void setSeatNumber(String seatNumber) {
-        this.seatNumber = seatNumber;
-    }
+	public void setSeatId(int seatId) {
+		this.seatId = seatId;
+	}
 
-    public SeatType getSeatType() {
-        return seatType;
-    }
+	public String getSeatNumber() {
+		return seatNumber;
+	}
 
-    public void setSeatType(SeatType seatType) {
-        this.seatType = seatType;
-    }
+	public void setSeatNumber(String seatNumber) {
+		this.seatNumber = seatNumber;
+	}
+
+	public SeatType getSeatType() {
+		return seatType;
+	}
 
 	public Show getShow() {
 		return show;
@@ -75,4 +75,5 @@ public class Seat {
 	}
 
    
+
 }

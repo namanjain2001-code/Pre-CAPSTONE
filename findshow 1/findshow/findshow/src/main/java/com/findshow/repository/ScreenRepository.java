@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ScreenRepository extends JpaRepository<Screen, Integer> {
     // You can add custom queries if needed. For example:
-	List<Screen> findByTheatre(Theatre theater);
+	List<Screen> findByTheatre(Theatre theatre);
     
 }

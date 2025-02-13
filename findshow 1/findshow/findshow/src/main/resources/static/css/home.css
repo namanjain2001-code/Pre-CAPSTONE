@@ -1,0 +1,164 @@
+body {
+	font-family: Arial, sans-serif;
+	background-color: red;
+}
+
+.navbar-nav .nav-item {
+	margin-left: 30px;
+}
+
+/* Ensure the right image takes up full width of its column */
+.custom-image {
+	object-fit: cover;
+	height: 100%;
+}
+
+.card {
+	margin-bottom: 20px;
+}
+
+.card img {
+	height: 200px;
+	object-fit: cover;
+}
+
+.card-title {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.card-text {
+	font-size: 1em;
+	color: #555;
+}
+
+.hero {
+	background-color: #f8f9fa;
+}
+
+.hero .img-fluid {
+	max-height: 400px; /* Adjust the height as needed */
+	object-fit: cover; /* Ensure the image covers the entire container */
+}
+
+.hero .col-md-4 {
+	padding: 0;
+}
+
+.hero h1 {
+	font-size: 3rem;
+	font-weight: bold;
+}
+
+.hero p {
+	font-size: 1.25rem;
+}
+
+.hero .btn-secondary {
+	font-size: 1.25rem;
+	padding: 12px 30px;
+}
+
+.custom-image {
+	width: 100%; /* Set width to 100% of its container */
+	height: auto; /* Maintain aspect ratio */
+	max-width: 700px; /* Set a maximum width */
+}
+
+/* Styling for Hindi Tab */
+#hindi-tab {
+	background-color: #ff6347; /* Tomato color */
+	color: white;
+	font-weight: bold;
+}
+
+#hindi-tab:hover {
+	background-color: #e55347; /* Darker shade */
+}
+
+/* Styling for English Tab */
+#english-tab {
+	background-color: #4682b4; /* Steel Blue color */
+	color: white;
+	font-weight: bold;
+}
+
+#english-tab:hover {
+	background-color: #36628b; /* Darker shade */
+}
+
+/* Styling for Telugu Tab */
+#telugu-tab {
+	background-color: #32cd32; /* Lime Green color */
+	color: white;
+	font-weight: bold;
+}
+
+#telugu-tab:hover {
+	background-color: #28a745; /* Darker shade */
+}
+
+/* Styling for Tamil Tab */
+#tamil-tab {
+	background-color: #f39c12; /* Orange color */
+	color: white;
+	font-weight: bold;
+}
+
+#tamil-tab:hover {
+	background-color: #e67e22; /* Darker shade */
+}
+
+/* Active Tab Custom Color */
+.nav-pills .nav-link.active {
+	color: #fff;
+	background-color: #1e90ff; /* Blue color for active tab */
+}
+
+/* Optional: Style the hover effect for all tabs */
+.nav-pills .nav-link:hover {
+	border-color: #fff;
+}
+
+.card {
+	border: none;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+	height: 250px;
+	object-fit: cover;
+	border-radius: 8px 8px 0 0;
+}
+
+footer {
+	background-color: #222;
+	color: #ccc;
+}
+
+/* Initial State of Images */
+.fly-in-image {
+	opacity: 0;
+	transform: translateX(-100%);
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* When the images are in the viewport */
+.visible {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+/* Optional: Add some delay to each image to stagger the animation */
+.fly-in-image:nth-child(1) {
+	transition-delay: 0.2s;
+}
+
+.fly-in-image:nth-child(2) {
+	transition-delay: 0.4s;
+}
+
+.fly-in-image:nth-child(3) {
+	transition-delay: 0.6s;
+}
