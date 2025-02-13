@@ -2,61 +2,72 @@ package com.findshow.model;
 
 import jakarta.persistence.*;
 
-// Seat POJO class
 @Entity
 @Table(name = "seats")
 public class Seat {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "seat_id")
-    private int seatId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "seat_id")
+	private int seatId;
 
-    @Column(name = "seat_number", nullable = false)
-    private String seatNumber;
+	@Column(name = "seat_number", nullable = false)
+	private String seatNumber;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "seat_type", nullable = false)
-    private SeatType seatType;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "seat_type", nullable = false)
+	private SeatType seatType;
 
-    public enum SeatType {
-        NORMAL, SOFA, RECLINER
-    }
+	public enum SeatType {
+		NORMAL, SOFA, RECLINER
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "screen_id", nullable = false)
-    private Screen screen;
+	@ManyToOne
+	@JoinColumn(name = "screen_id", nullable = false)
+	private Screen screen;
 
-    // Getters and Setters
-    public int getSeatId() {
-        return seatId;
-    }
+	@ManyToOne
+	@JoinColumn(name = "show_id", nullable = false)
+	private Show show;
 
-    public void setSeatId(int seatId) {
-        this.seatId = seatId;
-    }
+	// Getters and Setters
+	public int getSeatId() {
+		return seatId;
+	}
 
-    public String getSeatNumber() {
-        return seatNumber;
-    }
+	public void setSeatId(int seatId) {
+		this.seatId = seatId;
+	}
 
-    public void setSeatNumber(String seatNumber) {
-        this.seatNumber = seatNumber;
-    }
+	public String getSeatNumber() {
+		return seatNumber;
+	}
 
-    public SeatType getSeatType() {
-        return seatType;
-    }
+	public void setSeatNumber(String seatNumber) {
+		this.seatNumber = seatNumber;
+	}
 
-    public void setSeatType(SeatType seatType) {
-        this.seatType = seatType;
-    }
+	public SeatType getSeatType() {
+		return seatType;
+	}
 
-    public Screen getScreen() {
-        return screen;
-    }
+	public void setSeatType(SeatType seatType) {
+		this.seatType = seatType;
+	}
 
-    public void setScreen(Screen screen) {
-        this.screen = screen;
-    }
+	public Screen getScreen() {
+		return screen;
+	}
+
+	public void setScreen(Screen screen) {
+		this.screen = screen;
+	}
+
+	public Show getShow() {
+		return show;
+	}
+
+	public void setShow(Show show) {
+		this.show = show;
+	}
 }

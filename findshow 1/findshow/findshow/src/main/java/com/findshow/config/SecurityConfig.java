@@ -65,11 +65,11 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	    http  // Disable CSRF protection if not using it
 	        .authorizeHttpRequests((requests) -> requests
+	        		.requestMatchers("/**").permitAll()
 	        		.requestMatchers("/api/admin/register").hasRole("SUPERADMIN")
 	            .requestMatchers("/admin/**").hasRole("ADMIN")  // Allow login
 	            .requestMatchers("/superadmin/**").hasRole("SUPERADMIN")
 	            .requestMatchers("/user/**").hasRole("USER")
-	            .requestMatchers("/**").permitAll()
 	            .anyRequest().authenticated() // Require authentication for other pages
 	        )
 //	    .csrf(AbstractHttpConfigurer::disable)

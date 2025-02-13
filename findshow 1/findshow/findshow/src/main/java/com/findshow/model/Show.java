@@ -28,6 +28,8 @@ public class Show {
 
     @OneToMany(mappedBy = "show")
     private List<Booking> bookings;
+    
+    
 
     // Getters and Setters
     public int getShowId() {

@@ -1,0 +1,73 @@
+/* General Body and Layout */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    
+}
+
+.hero-section {
+    background-color: rgba(255, 255, 255, 0.7); /* Light background with some transparency */
+    padding: 80px 0;
+    color: #333; /* Dark text color for contrast */
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.hero-section .lead {
+    font-size: 1.2rem;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Styling for the Movie Poster */
+.card-img-top {
+    object-fit: cover;
+    height: 450px;
+}
+
+/* Movie rating badge */
+.rating .badge {
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+/* Sidebar Card */
+.list-group-item {
+    font-size: 1.1rem;
+}
+
+.star-rating i {
+    font-size: 1.5rem; /* Adjust size of stars */
+    margin-right: 5px; /* Space between stars */
+}
+
+
+/* Back to Home Button */
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Padding adjustments */
+.mt-3 {
+    margin-top: 1rem;
+}

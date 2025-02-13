@@ -10,80 +10,92 @@ import java.util.List;
 @Table(name = "bookings")
 public class Booking {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "booking_id")
-    private int bookingId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "booking_id")
+	private int bookingId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private Users user;
 
-    @ManyToOne
-    @JoinColumn(name = "show_id", nullable = false)
-    private Show show;
+	@ManyToOne
+	@JoinColumn(name = "show_id", nullable = false)
+	private Show show;
 
-    @ManyToOne
-    @JoinColumn(name = "seat_id", nullable = false)
-    private Seat seat;
+	@ManyToOne
+	@JoinColumn(name = "seat_id", nullable = false)
+	private Seat seat;
 
-    @Column(name = "booking_time", nullable = false, updatable = false)
-    private LocalDateTime bookingTime;
+	@Column(name = "booking_time", nullable = false, updatable = false)
+	private LocalDateTime bookingTime;
 
-    @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private BookingStatus status;
+	@Column(name = "status", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private BookingStatus status;
 
-    public enum BookingStatus {
-        BOOKED, CANCELLED
-    }
+	public enum BookingStatus {
+		BOOKED, CANCELLED
+	}
 
-    // Getters and Setters
-    public int getBookingId() {
-        return bookingId;
-    }
+	@ManyToOne
+	@JoinColumn(name = "screen_id", nullable = false)
+	private Screen screen;
 
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
-    }
+	// Getters and Setters
+	public int getBookingId() {
+		return bookingId;
+	}
 
-    public Users getUser() {
-        return user;
-    }
+	public void setBookingId(int bookingId) {
+		this.bookingId = bookingId;
+	}
 
-    public void setUser(Users user) {
-        this.user = user;
-    }
+	public Users getUser() {
+		return user;
+	}
 
-    public Show getShow() {
-        return show;
-    }
+	public void setUser(Users user) {
+		this.user = user;
+	}
 
-    public void setShow(Show show) {
-        this.show = show;
-    }
+	public Show getShow() {
+		return show;
+	}
 
-    public Seat getSeat() {
-        return seat;
-    }
+	public void setShow(Show show) {
+		this.show = show;
+	}
 
-    public void setSeat(Seat seat) {
-        this.seat = seat;
-    }
+	public Seat getSeat() {
+		return seat;
+	}
 
-    public LocalDateTime getBookingTime() {
-        return bookingTime;
-    }
+	public void setSeat(Seat seat) {
+		this.seat = seat;
+	}
 
-    public void setBookingTime(LocalDateTime bookingTime) {
-        this.bookingTime = bookingTime;
-    }
+	public LocalDateTime getBookingTime() {
+		return bookingTime;
+	}
 
-    public BookingStatus getStatus() {
-        return status;
-    }
+	public void setBookingTime(LocalDateTime bookingTime) {
+		this.bookingTime = bookingTime;
+	}
 
-    public void setStatus(BookingStatus status) {
-        this.status = status;
-    }
+	public BookingStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(BookingStatus status) {
+		this.status = status;
+	}
+
+	public Screen getScreen() {
+		return screen;
+	}
+
+	public void setScreen(Screen screen) {
+		this.screen = screen;
+	}
 }
