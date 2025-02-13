@@ -1,0 +1,133 @@
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.25s ease-in-out;
+    background-color: #fff;
+}
+
+#sidebar {
+    width: 80px;
+    min-width: 80px;
+    transition: all 0.25s ease-in-out;
+    background-color: #0b0f19;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#sidebar.expand {
+    width: 260px;
+    min-width: 260px;
+}
+
+.toggle-btn {
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    border-radius: 0.425rem;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #323c55;
+}
+
+.toggle-btn i {
+    color: #fff;
+}
+
+#sidebar:not(.expand) .sidebar-logo,
+#sidebar:not(.expand) .sidebar-nav{
+    display: none;
+}
+
+#sidebar.expand .sidebar-logo,
+#sidebar.expand .sidebar-nav,
+#sidebar.expand .sidebar-footer {
+    display: block;
+    animation: fadeIn .25s ease;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+#sidebar-logo a {
+    color: #fff;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.sidebar-nav {
+    padding: 0.7rem 0;
+    flex: 1;
+    z-index: 10;
+}
+
+a.sidebar-link {
+    padding: .625rem 1.625rem;
+    color: #fff;
+    display: block;
+    white-space: nowrap;
+    font-weight: 700;
+    border-left: 3px solid transparent;
+}
+
+#sidebar .sidebar-nav {
+    transition: opacity 0.25s ease;
+}
+
+#sidebar.expand .sidebar-nav {
+    display: block;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding: 1rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+}
+
+.sidebar-footer a {
+    color: #fff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-footer i {
+    margin-right: 8px;
+}
+
+/* Make sure the logout icon is always visible */
+#sidebar:not(.expand) .sidebar-footer span {
+    display: none; /* Hide the text in collapsed state */
+}
+
+#sidebar:not(.expand) .sidebar-footer i {
+    display: inline-block;
+}

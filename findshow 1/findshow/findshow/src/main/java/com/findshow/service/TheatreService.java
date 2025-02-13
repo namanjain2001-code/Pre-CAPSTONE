@@ -11,18 +11,30 @@ import com.findshow.repository.TheatreRepository;
 
 @Service
 public class TheatreService {
-	TheatreRepository theatreRepository;
+	@Autowired
+	private TheatreRepository theatreRepository;
+
 	@Autowired
 	public TheatreService(TheatreRepository theatreRepository) {
 		this.theatreRepository = theatreRepository;
 	}
+
 	@Transactional
 	public void saveTheatre(Theatre theatre) {
 		theatreRepository.save(theatre);
 	}
+
 	@Transactional
 	public List<Theatre> listAllTheatres() {
 		return theatreRepository.findAll();
 	}
-	
+
+	public Theatre findByName(String theatreName) {
+		return theatreRepository.findByTheatreName(theatreName);
+	}
+
+	public List<Theatre> findAll() {
+		return theatreRepository.findAll();
+	}
+
 }

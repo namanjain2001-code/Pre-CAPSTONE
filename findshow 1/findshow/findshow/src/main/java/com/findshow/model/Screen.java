@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 // Screens POJO class
+
 @Entity
 @Table(name = "screens")
 public class Screen {
@@ -13,35 +14,29 @@ public class Screen {
     @Column(name = "screen_id")
     private int screenId;
 
-    @Column(name = "screen_number", nullable = false)
+    @Column(name = "screen_number")
     private int screenNumber;
-    @Column(name ="screen_capacity", nullable = false)
-    private int screenCapacity;
+
     @ManyToOne
     @JoinColumn(name = "theatre_id")
     private Theatre theatre;
 
-    @OneToMany(mappedBy = "screen")
-    private List<Seat> seats;
-
-    @OneToMany(mappedBy = "screen")
-    private List<Show> shows;
-
-    // Getters and Setters
-    public int getTheatreId() {
-        return theatre != null ? theatre.getTheatreId() : 0; 
+    
+    @Column(name="screen_capacity")
+    private int screenCapacity;
+    
+    public enum ScreenType {
+        IMAX, REGULAR
     }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "screen_type")
+    private ScreenType screenType;
 
-    public void setTheatreId(int theatreId) {
-        if (this.theatre != null) {
-            this.theatre.setTheatreId(theatreId); 
-        }
-    }
-    
-    
-    
-    
-    
+
+
+
+	// Getters and Setters
+
     public int getScreenId() {
         return screenId;
     }
@@ -66,22 +61,6 @@ public class Screen {
         this.theatre = theatre;
     }
 
-    public List<Seat> getSeats() {
-        return seats;
-    }
-
-    public void setSeats(List<Seat> seats) {
-        this.seats = seats;
-    }
-
-    public List<Show> getShows() {
-        return shows;
-    }
-
-    public void setShows(List<Show> shows) {
-        this.shows = shows;
-    }
-
 	public int getScreenCapacity() {
 		return screenCapacity;
 	}
@@ -89,4 +68,14 @@ public class Screen {
 	public void setScreenCapacity(int screenCapacity) {
 		this.screenCapacity = screenCapacity;
 	}
+
+	public ScreenType getScreenType() {
+		return screenType;
+	}
+
+	public void setScreenType(ScreenType screenType) {
+		this.screenType = screenType;
+	}
+
+
 }

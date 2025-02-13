@@ -12,7 +12,7 @@ import com.findshow.repository.RoleRepository;
 public class RoleService {
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Transactional
 	public Role getRoleName(RoleName roleName) {
 		

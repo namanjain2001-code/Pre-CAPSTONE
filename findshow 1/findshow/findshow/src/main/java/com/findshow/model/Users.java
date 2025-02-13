@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,10 +35,6 @@ public class Users {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @NotNull(message = "Password cannot be null")
-    @Size(min = 6, message = "Password must be at least 6 characters long")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{6,}$", 
-             message = "Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character")
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
@@ -46,7 +43,9 @@ public class Users {
       name = "user_roles", 
       joinColumns = @JoinColumn(name = "user_id"), 
       inverseJoinColumns = @JoinColumn(name = "role_id"))
+
     private Set<Role> roles = new HashSet<>();
+
 
     // Getters and Setters
     public int getUserId() {

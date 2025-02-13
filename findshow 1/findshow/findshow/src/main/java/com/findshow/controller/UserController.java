@@ -55,7 +55,14 @@ public class UserController {
 
 package com.findshow.controller;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,12 +71,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+import com.findshow.model.DummyMovie;
+import com.findshow.model.Movie;
 import com.findshow.model.Role;
 import com.findshow.model.Role.RoleName;
+import com.findshow.repository.TheatreRepository;
+import com.findshow.model.Screen;
+import com.findshow.model.Seat;
+import com.findshow.model.Seat.SeatType;
+import com.findshow.model.Show;
+import com.findshow.model.Theatre;
 import com.findshow.model.Users;
+import com.findshow.service.MovieService;
 import com.findshow.service.RoleService;
+//import com.findshow.service.SeatService;
+import com.findshow.service.ShowService;
+import com.findshow.service.TheatreService;
 import com.findshow.service.UserService;
 
 @Controller
@@ -106,15 +130,13 @@ public class UserController {
         return "redirect:/user/dashboard";  // Redirect to dashboard after successful registration
     }
 
-    @GetMapping("/user/dashboard")
-    public String getDashboard() {
-        return "dashboard";  // Return the dashboard page
-    }
+
     
     // Custom Login Page
     @GetMapping("/login")
     public String showLoginPage() {
         return "login";  // Return the login page
     }
+
 }
 

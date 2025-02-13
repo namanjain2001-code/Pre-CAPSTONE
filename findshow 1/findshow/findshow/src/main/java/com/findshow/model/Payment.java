@@ -12,15 +12,15 @@ public class Payment {
     @Column(name = "payment_id")
     private int paymentId;
 
-    @ManyToOne
-    @JoinColumn(name = "booking_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "booking_id")
     private Booking booking;
 
     @Column(name = "amount",columnDefinition="DECIMAL(10,2)")
     private double amount;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "payment_method", nullable = false)
+    @Column(name = "payment_method")
     private PaymentMethod paymentMethod;
 
     public enum PaymentMethod {
@@ -28,14 +28,14 @@ public class Payment {
     }
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "payment_status", nullable = false)
+    @Column(name = "payment_status")
     private PaymentStatus paymentStatus;
 
     public enum PaymentStatus {
         PENDING, COMPLETED, FAILED
     }
 
-    @Column(name = "payment_date", nullable = false)
+    @Column(name = "payment_date")
     private LocalDateTime paymentDate;
 
     // Getters and Setters

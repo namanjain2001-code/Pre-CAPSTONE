@@ -124,12 +124,7 @@ public class AdminRegisterController {
 	
 	
 	
-	@RequestMapping("/viewadmins")
-	public String viewAdmins(Model model) {
-		List<UserDto> users=userService.findAllUsers();
-		model.addAttribute("users",users);
-		return "manageadmins";
-	}
+
     
     @GetMapping("/register")
     public String registerUser(Model model){
