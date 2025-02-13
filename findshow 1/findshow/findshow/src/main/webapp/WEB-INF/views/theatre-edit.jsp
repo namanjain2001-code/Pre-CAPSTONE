@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Theatre</title>
+    <title>Edit Theatre</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,23 +51,14 @@
 <body>
 
 <div class="container">
-    <h2>Add New Theatre</h2>
+    <h2>Edit Theatre</h2>
 
-    <form:form method="POST" modelAttribute="theatre" action="/theatre">
+    <form:form method="POST" modelAttribute="theatre" action="/theatre/edit/${theatre.theatreId}">
         <div class="form-group">
             <label for="theatreName">Theatre Name</label>
-            <form:input path="theatreName" id="theatreName" required="true"/>
+            <form:input path="theatreName" id="theatreName" required="true" value="${theatre.theatreName}"/>
         </div>
 
         <div class="form-group">
             <label for="location">Location</label>
-            <form:input path="location" id="location" required="true"/>
-        </div>
-
-        <button type="submit">Add Theatre</button>
-    </form:form>
-</div>
-
-</body>
-</html>
-
+            <form:input path="location"
