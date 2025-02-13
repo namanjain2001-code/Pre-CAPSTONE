@@ -34,15 +34,7 @@ public class Users {
     @Email(message = "Please provide a valid email address")
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-<<<<<<< HEAD
-    
-=======
 
-    @NotNull(message = "Password cannot be null")
-    @Size(min = 6, message = "Password must be at least 6 characters long")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{6,}$", 
-             message = "Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character")
->>>>>>> 93c8e3ed851606b401030f7005618187264cb3a0
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
@@ -51,22 +43,9 @@ public class Users {
       name = "user_roles", 
       joinColumns = @JoinColumn(name = "user_id"), 
       inverseJoinColumns = @JoinColumn(name = "role_id"))
-<<<<<<< HEAD
-    private Set<Role> roles=new HashSet();
-    
-    public Set<Theatre> getTheatres() {
-		return theatres;
-	}
 
-	public void setTheatres(Set<Theatre> theatres) {
-		this.theatres = theatres;
-	}
-
-	@OneToMany(mappedBy = "user")
-    private Set<Theatre> theatres=new HashSet();
-=======
     private Set<Role> roles = new HashSet<>();
->>>>>>> 93c8e3ed851606b401030f7005618187264cb3a0
+
 
     // Getters and Setters
     public int getUserId() {

@@ -16,12 +16,7 @@ public class Screen {
 
     @Column(name = "screen_number")
     private int screenNumber;
-<<<<<<< HEAD
-    
-=======
-    @Column(name ="screen_capacity", nullable = false)
-    private int screenCapacity;
->>>>>>> 93c8e3ed851606b401030f7005618187264cb3a0
+
     @ManyToOne
     @JoinColumn(name = "theatre_id")
     private Theatre theatre;
@@ -37,13 +32,7 @@ public class Screen {
     @Column(name = "screen_type")
     private ScreenType screenType;
 
-    public int getScreenCapacity() {
-		return screenCapacity;
-	}
 
-	public void setScreenCapacity(int screenCapacity) {
-		this.screenCapacity = screenCapacity;
-	}
 
 
 	// Getters and Setters
@@ -71,21 +60,6 @@ public class Screen {
         this.theatre = theatre;
     }
 
-
-<<<<<<< HEAD
-=======
-    public void setSeats(List<Seat> seats) {
-        this.seats = seats;
-    }
-
-    public List<Show> getShows() {
-        return shows;
-    }
-
-    public void setShows(List<Show> shows) {
-        this.shows = shows;
-    }
-
 	public int getScreenCapacity() {
 		return screenCapacity;
 	}
@@ -93,5 +67,14 @@ public class Screen {
 	public void setScreenCapacity(int screenCapacity) {
 		this.screenCapacity = screenCapacity;
 	}
->>>>>>> 93c8e3ed851606b401030f7005618187264cb3a0
+
+	public ScreenType getScreenType() {
+		return screenType;
+	}
+
+	public void setScreenType(ScreenType screenType) {
+		this.screenType = screenType;
+	}
+
+
 }

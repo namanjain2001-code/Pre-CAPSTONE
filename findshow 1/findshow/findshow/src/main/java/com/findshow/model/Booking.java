@@ -11,10 +11,10 @@ import java.util.Set;
 @Table(name = "bookings")
 public class Booking {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "booking_id")
-    private int bookingId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "booking_id")
+	private int bookingId;
 
 
     @OneToMany
@@ -28,18 +28,17 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
 
-    public enum BookingStatus {
-        BOOKED, CANCELLED
-    }
 
-    // Getters and Setters
-    public int getBookingId() {
-        return bookingId;
-    }
+	public enum BookingStatus {
+		BOOKED, CANCELLED
+	}
 
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
-    }
+	
+	// Getters and Setters
+	public int getBookingId() {
+		return bookingId;
+	}
+
 
    
 
@@ -52,19 +51,18 @@ public class Booking {
 		this.seats = seats;
 	}
 
-	public LocalDateTime getBookingTime() {
-        return bookingTime;
-    }
 
-    public void setBookingTime(LocalDateTime bookingTime) {
-        this.bookingTime = bookingTime;
-    }
+	public void setBookingTime(LocalDateTime bookingTime) {
+		this.bookingTime = bookingTime;
+	}
 
-    public BookingStatus getStatus() {
-        return status;
-    }
+	public BookingStatus getStatus() {
+		return status;
+	}
 
-    public void setStatus(BookingStatus status) {
-        this.status = status;
-    }
+	public void setStatus(BookingStatus status) {
+		this.status = status;
+	}
+
+	
 }

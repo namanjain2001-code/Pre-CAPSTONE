@@ -1,0 +1,20 @@
+.seat {
+	width: 40px;
+	height: 40px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	margin: 5px;
+	cursor: pointer;
+}
+
+.available {
+	background-color: #28a745;
+}
+
+.selected {
+	background-color: #ffc107;
+}
+
+.booked {
+	background-color: #dc3545;
+}

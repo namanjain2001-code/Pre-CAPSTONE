@@ -1,3 +1,4 @@
+
 package com.findshow.model;
 import com.findshow.model.Screen.ScreenType;
 import com.findshow.model.Seat.SeatType;
@@ -105,3 +106,4 @@ public class SeatCost {
                 '}';
     }
 }
+
