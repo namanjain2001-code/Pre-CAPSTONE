@@ -1,10 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theater List</title>
+    <title>Theatre List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,26 +51,26 @@
 <body>
 
 <div class="container">
-    <h2>Theater List</h2>
+    <h2>Theatre List</h2>
 
     <table>
         <thead>
             <tr>
-                <th>Theater Name</th>
-                <th>Location</th>
+                <th>Theatre Name</th>
+                <th>Theatre Location</th>
                 <th>Number of Screens</th>
-               
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="theater" items="${theatres}">
+            <c:forEach var="theatre" items="${theatres}">
                 <tr>
-                    <td>${theater.theatreName}</td>
-                    <td>${theater.TheatreLocation}</td>
-                    <td>${theater.noOfScreens}</td> <!-- Displaying number of screens -->
+                    <td>${theatre.theatreName}</td>
+                    <td>${theatre.theatreLocation}</td>
+                    <td>${theatre.noOfScreens}</td> <!-- Displaying the number of screens -->
                     <td class="action-buttons">
-                        <a href="/theater/edit/${theater.theatreId}">Edit</a>  <!-- Link for edit action -->
-                        <a href="/theater/delete/${theater.theatreId}">Delete</a>  <!-- Link for delete action -->
+                        <a href="/admin/theatre/edit/${theatre.theatreId}">Edit</a>
+                        <a href="/admin/theatre/delete/${theatre.theatreId}" onclick="return confirm('Are you sure you want to delete this theatre?');">Delete</a>
                     </td>
                 </tr>
             </c:forEach>
@@ -78,4 +80,3 @@
 
 </body>
 </html>
-

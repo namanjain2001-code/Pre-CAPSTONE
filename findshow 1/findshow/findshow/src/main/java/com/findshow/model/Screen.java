@@ -36,6 +36,7 @@ public class Screen {
 
 
 	// Getters and Setters
+
     public int getScreenId() {
         return screenId;
     }

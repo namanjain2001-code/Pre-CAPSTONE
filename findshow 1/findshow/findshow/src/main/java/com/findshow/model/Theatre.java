@@ -22,10 +22,17 @@ public class Theatre {
     @Column(name="theatre_screens")
     private int noOfScreens;
     
+
+    
+
+    @OneToMany(mappedBy = "theatre")
+    private List<Screen> screens;
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private Users user;
     
+
 
     // Getters and Setters
     public int getTheatreId() {

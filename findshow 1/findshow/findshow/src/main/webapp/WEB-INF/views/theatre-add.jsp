@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Theatre</title>
+    <title>Add Theatre</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,7 +53,7 @@
 <div class="container">
     <h2>Add New Theatre</h2>
 
-    <form:form method="POST" modelAttribute="theatre" action="/theatre/add">
+    <form:form method="POST" modelAttribute="theatre" action="/admin/theatre/add">
         <div class="form-group">
             <label for="theatreName">Theatre Name</label>
             <form:input path="theatreName" id="theatreName" required="true"/>
@@ -61,12 +61,19 @@
 
         <div class="form-group">
             <label for="theatreLocation">Location</label>
-            <form:input path="theatreLocation" id="TheatreLocation" required="true"/>
+            <form:input path="theatreLocation" id="theatreLocation" required="true"/>
+        </div>
+
+        <div class="form-group">
+            <label for="noOfScreens">Number of Screens</label>
+            <form:input path="noOfScreens" id="noOfScreens" required="true" type="number"/>
         </div>
 
         <button type="submit">Add Theatre</button>
     </form:form>
+
 </div>
 
 </body>
 </html>
+
