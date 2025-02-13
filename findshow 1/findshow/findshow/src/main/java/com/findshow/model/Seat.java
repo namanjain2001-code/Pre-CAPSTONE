@@ -12,11 +12,11 @@ public class Seat {
     @Column(name = "seat_id")
     private int seatId;
 
-    @Column(name = "seat_number", nullable = false)
+    @Column(name = "seat_number")
     private String seatNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "seat_type", nullable = false)
+    @Column(name = "seat_type")
     private SeatType seatType;
 
     public enum SeatType {
@@ -24,8 +24,14 @@ public class Seat {
     }
 
     @ManyToOne
-    @JoinColumn(name = "screen_id", nullable = false)
-    private Screen screen;
+    @JoinColumn(name = "show_id")
+    private Show show;
+    
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private Users user;
+    
+    
 
     // Getters and Setters
     public int getSeatId() {
@@ -52,11 +58,21 @@ public class Seat {
         this.seatType = seatType;
     }
 
-    public Screen getScreen() {
-        return screen;
-    }
+	public Show getShow() {
+		return show;
+	}
 
-    public void setScreen(Screen screen) {
-        this.screen = screen;
-    }
+	public void setShow(Show show) {
+		this.show = show;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+   
 }

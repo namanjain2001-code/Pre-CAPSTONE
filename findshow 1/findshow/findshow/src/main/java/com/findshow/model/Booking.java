@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 // Booking POJO class
 @Entity
@@ -15,22 +16,15 @@ public class Booking {
     @Column(name = "booking_id")
     private int bookingId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
 
-    @ManyToOne
-    @JoinColumn(name = "show_id", nullable = false)
-    private Show show;
+    @OneToMany
+    @JoinColumn(name = "seat_id")
+    private Set<Seat> seats;
 
-    @ManyToOne
-    @JoinColumn(name = "seat_id", nullable = false)
-    private Seat seat;
-
-    @Column(name = "booking_time", nullable = false, updatable = false)
+    @Column(name = "booking_time", updatable = false)
     private LocalDateTime bookingTime;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
 
@@ -47,31 +41,18 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
-    public Users getUser() {
-        return user;
-    }
+   
 
-    public void setUser(Users user) {
-        this.user = user;
-    }
 
-    public Show getShow() {
-        return show;
-    }
+    public Set<Seat> getSeats() {
+		return seats;
+	}
 
-    public void setShow(Show show) {
-        this.show = show;
-    }
+	public void setSeats(Set<Seat> seats) {
+		this.seats = seats;
+	}
 
-    public Seat getSeat() {
-        return seat;
-    }
-
-    public void setSeat(Seat seat) {
-        this.seat = seat;
-    }
-
-    public LocalDateTime getBookingTime() {
+	public LocalDateTime getBookingTime() {
         return bookingTime;
     }
 

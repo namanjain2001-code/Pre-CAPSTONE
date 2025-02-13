@@ -49,6 +49,7 @@ public class UserController {
     	userService.saveUser(user);
         return "redirect:/user/dashboard";
     }
+
     @GetMapping("/dashboard")
     public String getDashboard(Principal principal ){
     	String userName=principal.getName();

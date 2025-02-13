@@ -21,9 +21,11 @@ public class Theatre {
     
     @Column(name="theatre_screens")
     private int noOfScreens;
-
-    @OneToMany(mappedBy = "theatre")
-    private List<Screen> screens;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private Users user;
+    
 
     // Getters and Setters
     public int getTheatreId() {
@@ -60,11 +62,4 @@ public class Theatre {
 		this.noOfScreens = noOfScreens;
 	}
 
-	public List<Screen> getScreens() {
-        return screens;
-    }
-
-    public void setScreens(List<Screen> screens) {
-        this.screens = screens;
-    }
 }

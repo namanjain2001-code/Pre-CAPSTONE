@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 // Screens POJO class
+
 @Entity
 @Table(name = "screens")
 public class Screen {
@@ -13,20 +14,34 @@ public class Screen {
     @Column(name = "screen_id")
     private int screenId;
 
-    @Column(name = "screen_number", nullable = false)
+    @Column(name = "screen_number")
     private int screenNumber;
-
+    
     @ManyToOne
     @JoinColumn(name = "theatre_id")
     private Theatre theatre;
 
-    @OneToMany(mappedBy = "screen")
-    private List<Seat> seats;
+    
+    @Column(name="screen_capacity")
+    private int screenCapacity;
+    
+    public enum ScreenType {
+        IMAX, REGULAR
+    }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "screen_type")
+    private ScreenType screenType;
 
-    @OneToMany(mappedBy = "screen")
-    private List<Show> shows;
+    public int getScreenCapacity() {
+		return screenCapacity;
+	}
 
-    // Getters and Setters
+	public void setScreenCapacity(int screenCapacity) {
+		this.screenCapacity = screenCapacity;
+	}
+
+
+	// Getters and Setters
     public int getScreenId() {
         return screenId;
     }
@@ -51,19 +66,5 @@ public class Screen {
         this.theatre = theatre;
     }
 
-    public List<Seat> getSeats() {
-        return seats;
-    }
 
-    public void setSeats(List<Seat> seats) {
-        this.seats = seats;
-    }
-
-    public List<Show> getShows() {
-        return shows;
-    }
-
-    public void setShows(List<Show> shows) {
-        this.shows = shows;
-    }
 }
