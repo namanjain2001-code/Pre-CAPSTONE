@@ -1,11 +1,14 @@
 package com.findshow.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.HashSet;
 import java.util.Set;
 
-// Users POJO class
 @Entity
 @Table(name = "users")
 public class Users {
@@ -15,15 +18,26 @@ public class Users {
     @Column(name = "user_id")
     private int userId;
 
+    @NotNull(message = "Name cannot be null")
+    @Size(min = 2, message = "Name must be at least 2 characters long")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain only letters (A-Z, a-z)")
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotNull(message = "Phone number cannot be null")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
     @Column(name = "phone", nullable = false)
     private String phone;
 
+    @NotNull(message = "Email cannot be null")
+    @Email(message = "Please provide a valid email address")
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @NotNull(message = "Password cannot be null")
+    @Size(min = 6, message = "Password must be at least 6 characters long")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{6,}$", 
+             message = "Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character")
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
@@ -32,7 +46,7 @@ public class Users {
       name = "user_roles", 
       joinColumns = @JoinColumn(name = "user_id"), 
       inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles=new HashSet();
+    private Set<Role> roles = new HashSet<>();
 
     // Getters and Setters
     public int getUserId() {
