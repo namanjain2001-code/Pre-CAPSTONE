@@ -125,7 +125,7 @@ footer {
 
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="/">FindShow</a>
+		<a class="navbar-brand" href="/user/">FindShow</a>
 
 		<!-- Navbar Toggle Button for Mobile -->
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"

@@ -45,7 +45,7 @@ public class Movie {
     private LocalDate movieReleaseDate;
 
     public enum MovieType {
-        IMAX, regular
+        IMAX, REGULAR
     }
 
     // Getters and Setters

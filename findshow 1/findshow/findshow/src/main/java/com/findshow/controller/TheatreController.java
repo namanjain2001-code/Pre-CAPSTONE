@@ -3,6 +3,7 @@ import java.lang.String;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.web.exchanges.HttpExchange.Principal;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.findshow.model.Theatre;
 import com.findshow.repository.TheatreRepository;
 import com.findshow.service.TheatreService;
+import com.findshow.service.UserService;
+
 import java.lang.Object;
 @Controller
 @RequestMapping("/admin")
@@ -35,6 +38,8 @@ public class TheatreController {
 //	}
 	@Autowired
     private TheatreRepository theatreRepository;
+	@Autowired
+    private UserService userService;
 
     // Show all theatres
     @GetMapping("/theatres")
@@ -45,7 +50,15 @@ public class TheatreController {
 
     // Add new theatre
     @RequestMapping("/theatre/add")
-    public String showAddTheatreForm(Model model) {
+    public String showAddTheatreForm(Model model,Principal principal) {
+    	 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         
+         if (authentication != null && authentication.isAuthenticated()) {
+             String currentUserName = authentication.getName();  // This is the username (email or username based on your setup)
+             int userId=userService.findByEmail(currentUserName).getUserId();
+
+             model.addAttribute("currentUserId", userId);
+             }
         model.addAttribute("theatre", new Theatre());
         return "theatre-add";  // View name
     }

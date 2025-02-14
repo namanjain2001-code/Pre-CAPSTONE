@@ -132,6 +132,8 @@ public class AdminRegisterController {
     	model.addAttribute("user",user);
         return "register";
     }
+    
+    
     @PostMapping("/register")
     public String saveUser(@ModelAttribute("user")Users user){
     	String encodedPassword = passwordEncoder.encode(user.getPasswordHash());
@@ -147,9 +149,5 @@ public class AdminRegisterController {
     	userService.saveUser(user);
         return "redirect:/admin/dashboard";
     }
-    @GetMapping("/dashboard")
-    public String getDashboard(Principal principal ){
-    	String userName=principal.getName();
-    	return "dashboard";
-    }
+    
 }

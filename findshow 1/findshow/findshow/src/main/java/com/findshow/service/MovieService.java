@@ -21,7 +21,8 @@ public class MovieService {
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }
-    public Movie getmovie(int movieId) {
+
+	public Movie getmovie(int movieId) {
 		return movieRepository.findByMovieId(movieId);
 	}
 }
