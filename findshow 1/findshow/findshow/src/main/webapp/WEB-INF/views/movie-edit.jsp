@@ -48,7 +48,7 @@
             <td>
                 <form:select path="movieType">
                     <form:option value="IMAX">IMAX</form:option>
-                    <form:option value="regular">Regular</form:option>
+                    <form:option value="REGULAR">Regular</form:option>
                 </form:select>
             </td>
         </tr>

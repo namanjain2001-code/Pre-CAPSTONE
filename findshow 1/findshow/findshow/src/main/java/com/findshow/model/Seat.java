@@ -1,5 +1,7 @@
 package com.findshow.model;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -26,7 +28,11 @@ public class Seat {
 
 
     
-    @ManyToOne
+    public void setSeatType(SeatType seatType) {
+		this.seatType = seatType;
+	}
+
+	@ManyToOne
     @JoinColumn(name="user_id")
     private Users user;
     

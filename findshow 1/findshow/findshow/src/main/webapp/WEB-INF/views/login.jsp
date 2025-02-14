@@ -23,7 +23,7 @@
             <p style="color: red;">Invalid email or password. Please try again.</p>
         </c:if>
 
-        <form:form  >
+        <form:form action="/authenticate" method="post" >
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" required />

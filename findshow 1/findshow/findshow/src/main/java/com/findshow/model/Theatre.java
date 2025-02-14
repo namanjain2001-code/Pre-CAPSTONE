@@ -13,7 +13,23 @@ public class Theatre {
     @Column(name = "theatre_id")
     private int theatreId;
 
-    @Column(name = "theatre_name", nullable = false)
+    public List<Screen> getScreens() {
+		return screens;
+	}
+
+	public void setScreens(List<Screen> screens) {
+		this.screens = screens;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	@Column(name = "theatre_name", nullable = false)
     private String theatreName;
 
     @Column(name = "theatre_location", nullable = false)

@@ -91,18 +91,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.findshow.service.CustomUserDetailsService;
 
+import jakarta.servlet.DispatcherType;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -137,7 +136,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/**").permitAll()
+//            		.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+                .requestMatchers("/login","/register").permitAll()
                 .requestMatchers("/api/admin/register").hasRole("SUPERADMIN")
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/superadmin/**").hasRole("SUPERADMIN")
@@ -145,24 +145,44 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form
-                .loginPage("/login")
-                .usernameParameter("email") // Use email for login instead of username
-                .passwordParameter("passwordHash")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-            )
+//            		.loginPage("/login")
+            		.loginProcessingUrl("/authenticate")
+            		.successHandler(customSuccessHandler())
+            		.failureUrl("/login?error=true")
+            		.usernameParameter("email") 
+            		.passwordParameter("passwordHash")
+            		.permitAll()
+            		)
             .logout((logout) -> logout
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
+                .logoutUrl("/logout") // Ensure logout URL is correct
+                .logoutSuccessUrl("/")  // Redirect after successful logout
+                .clearAuthentication(true) // Clear authentication
+                .invalidateHttpSession(true) // Invalidate the session
             )
             .sessionManagement(session -> session
                 .maximumSessions(2)
-                .maxSessionsPreventsLogin(true)
+                .maxSessionsPreventsLogin(true)// Optional, to prevent session fixation
             );
 
         return http.build();
     }
+
+    @Bean
+    public AuthenticationSuccessHandler customSuccessHandler() {
+        return (request, response, authentication) -> {
+            StringBuilder targetUrl = new StringBuilder("/");
+            if (authentication.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+                targetUrl = new StringBuilder("/admin/");
+            } else if(authentication.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_SUPERADMIN"))) {
+                targetUrl = new StringBuilder("/superadmin/");
+            } else if(authentication.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_USER"))) {
+                targetUrl = new StringBuilder("/user/");
+            }
+
+            response.sendRedirect(targetUrl.toString());
+        };
+    }
 }
-
-
-
