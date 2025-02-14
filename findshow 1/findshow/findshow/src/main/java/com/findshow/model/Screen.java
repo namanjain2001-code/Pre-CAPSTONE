@@ -61,7 +61,6 @@ public class Screen {
         this.theatre = theatre;
     }
 
-
 	public int getScreenCapacity() {
 		return screenCapacity;
 	}
