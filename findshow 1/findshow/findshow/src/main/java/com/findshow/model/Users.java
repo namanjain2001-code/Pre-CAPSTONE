@@ -44,8 +44,18 @@ public class Users {
       joinColumns = @JoinColumn(name = "user_id"), 
       inverseJoinColumns = @JoinColumn(name = "role_id"))
 
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles=new HashSet();
+    
+    public Set<Theatre> getTheatres() {
+		return theatres;
+	}
 
+	public void setTheatres(Set<Theatre> theatres) {
+		this.theatres = theatres;
+	}
+
+	@OneToMany(mappedBy = "user")
+    private Set<Theatre> theatres=new HashSet();
 
     // Getters and Setters
     public int getUserId() {

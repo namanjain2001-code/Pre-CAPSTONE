@@ -14,8 +14,7 @@ import com.findshow.dto.UserDto;
 import com.findshow.service.RoleService;
 import com.findshow.service.UserService;
 
-
-@Controller
+@Controller 
 @RequestMapping("/admin")
 public class AdminController {
 	@Autowired

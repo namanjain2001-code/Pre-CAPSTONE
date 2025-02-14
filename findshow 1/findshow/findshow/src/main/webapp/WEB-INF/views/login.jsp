@@ -17,7 +17,9 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
-
+        <h3></h3></h3>
+            <h2>Hi Girish</h2>
+            <h3></h3>
         <!-- Display error message if login failed -->
         <c:if test="${param.error}">
             <p style="color: red;">Invalid email or password. Please try again.</p>
