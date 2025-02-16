@@ -46,11 +46,6 @@
             <p><strong>Customer Name:</strong> ${customerName}</p> <!-- Added Customer Name -->
         </div>
     </div>
-
-    <!-- Print Ticket Button -->
-    <div class="text-center mt-4">
-        <a href="#" class="btn btn-custom btn-lg">Print Ticket</a>
-    </div>
 </div>
 
 <!-- Bootstrap JS and Popper.js -->

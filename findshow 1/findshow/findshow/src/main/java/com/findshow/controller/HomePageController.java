@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.findshow.model.Booking;
 import com.findshow.model.Screen;
 import com.findshow.model.Seat;
 import com.findshow.model.Show;
@@ -64,7 +65,7 @@ public class HomePageController {
 		
 		model.addAttribute("theatres", theatreRepository.findAll());
 		model.addAttribute("movie", movieRepository.findByMovieId(movieId));
-		
+
 		return "showtimings";
 	}
 	
@@ -80,9 +81,12 @@ public class HomePageController {
 		model.addAttribute("seatLayout",seats);
 		model.addAttribute("theatreName",theaterName);
 		model.addAttribute("screenNumber",screenNumber);
-		model.addAttribute("showId",showId);
+		
+		model.addAttribute("show",showRepository.findByShowId(showId));
+		model.addAttribute("seats", new Seat());
 
 //		
+		
 		return "seatSelection";
 	}
 	@PostMapping("/seatSelection")

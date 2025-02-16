@@ -6,7 +6,93 @@
 <head>
     <meta charset="UTF-8">
     <title>Add New Movie</title>
-    <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/style.css'/>">  
+    <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/style.css'/>"> 
+	<style>
+	        /* Basic Styles for the Form */
+	        body {
+	            font-family: Arial, sans-serif;
+	            background-color: #f4f4f9;
+	            margin: 0;
+	            padding: 0;
+	        }
+
+	        h2 {
+	            text-align: center;
+	            margin-top: 20px;
+	            color: #333;
+	        }
+
+	        .form-container {
+	            width: 80%;
+	            max-width: 800px;
+	            margin: 30px auto;
+	            background-color: #fff;
+	            padding: 20px;
+	            border-radius: 8px;
+	            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	        }
+
+	        fieldset {
+	            border: 2px solid #007bff;
+	            padding: 20px;
+	            border-radius: 8px;
+	        }
+
+	        legend {
+	            font-size: 1.5em;
+	            color: #007bff;
+	            font-weight: bold;
+	        }
+
+	        label {
+	            font-size: 1.1em;
+	            margin-bottom: 5px;
+	            display: inline-block;
+	        }
+
+	        input, select, textarea {
+	            width: 100%;
+	            padding: 8px;
+	            margin: 10px 0;
+	            border: 1px solid #ccc;
+	            border-radius: 5px;
+	            box-sizing: border-box;
+	        }
+
+	        textarea {
+	            resize: vertical;
+	            height: 100px;
+	        }
+
+	        button {
+	            background-color: #007bff;
+	            color: white;
+	            border: none;
+	            padding: 12px 20px;
+	            font-size: 1.1em;
+	            border-radius: 5px;
+	            cursor: pointer;
+	            width: 100%;
+	            margin-top: 10px;
+	        }
+
+	        button:hover {
+	            background-color: #0056b3;
+	        }
+
+	        a {
+	            display: block;
+	            text-align: center;
+	            margin-top: 20px;
+	            font-size: 1.2em;
+	            text-decoration: none;
+	            color: #007bff;
+	        }
+
+	        a:hover {
+	            text-decoration: underline;
+	        }
+	    </style> 
 </head>
 <body>
 

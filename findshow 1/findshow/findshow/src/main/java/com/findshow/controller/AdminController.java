@@ -36,9 +36,5 @@ public class AdminController {
 	}
     
     
-    @GetMapping("/dashboard")
-    public String getDashboard(Principal principal ){
-    	String userName=principal.getName();
-    	return "dashboard";
-    }
+
 }

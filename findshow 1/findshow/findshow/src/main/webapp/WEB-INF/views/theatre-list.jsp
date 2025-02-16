@@ -77,6 +77,7 @@
         </tbody>
     </table>
 </div>
+<a href="/admin/theatre/add" class="btn btn-primary btn-add">Add Theatre</a>
 
 </body>
 </html>

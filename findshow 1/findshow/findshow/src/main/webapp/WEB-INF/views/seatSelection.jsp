@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${movie.name} - Seat Selection</title>
+    <title>${show.movie.movieName} - Seat Selection</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -97,13 +97,13 @@
     </nav>
 
     <div class="container my-5">
-        <h2 class="text-center">${movie.name} - Select Your Seats</h2>
-        <p class="text-center">Showtime: ${showtime} | Screen: ${screenType}</p>
+        <h2 class="text-center">${show.movie.movieName} - Select Your Seats</h2>
+        <p class="text-center">Showtime: ${show.showTime} | Screen: ${show.screen.screenType}</p>
 
         <div class="screen">SCREEN</div>
 
         <!-- Seat Selection Layout -->
-        <form:form id="seatSelectionForm" method="post" >
+        <form:form id="seatSelectionForm" method="post" modelAttribute="seats" >
             <div class="seats-container">
                 <c:forEach var="row" items="${seatLayout}">
                     <div class="seats-row">
@@ -111,7 +111,6 @@
                             <div class="seat 
                                     <c:if test="${not empty seat.user}">occupied</c:if>" 
                                  data-seat="${seat.seatNumber}" 
-                                 data-user="${seat.user}" 
                                  onclick="selectSeat(this)">
                                 ${seat.seatNumber}
                                 <span class="price-info">₹ </span>
@@ -127,7 +126,10 @@
             </div>
 
             <!-- Hidden field to store selected seats -->
-            <input type="hidden" id="selectedSeats" name="selectedSeats">
+			<form:input type="hidden" id="selectedSeats" name="selectedSeats" path="seatNumber"/>
+			<input type="hidden" id="amount" name="amount" value="1000">
+			<form:input type="hidden" id="showId" path="show.showId" value="${show.showId}"/>
+
         </form:form>
     </div>
 
@@ -137,43 +139,46 @@
     </footer>
 
     <script>
-        let selectedSeats = [];
+		let selectedSeats = [];
 
-        function selectSeat(seat) {
-            const seatNumber = seat.getAttribute('data-seat');
-            const seatUser = seat.getAttribute('data-user');
+		function selectSeat(seat) {
+		    const seatNumber = seat.getAttribute('data-seat');
 
-            if (seat.classList.contains('selected')) {
-                seat.classList.remove('selected');
-                selectedSeats = selectedSeats.filter(item => item.seatNumber !== seatNumber);
-            } else if (!seat.classList.contains('occupied')) {
-                seat.classList.add('selected');
-                selectedSeats.push({ seatNumber, seatUser });
-            }
+		    if (seat.classList.contains('selected')) {
+		        // If the seat is already selected, remove it from the selected seats list
+		        seat.classList.remove('selected');
+		        selectedSeats = selectedSeats.filter(item => item !== seatNumber); // Corrected to compare seatNumber directly
+		    } else if (!seat.classList.contains('occupied')) {
+		        // If the seat is not occupied, add it to the selected seats list
+		        seat.classList.add('selected');
+		        selectedSeats.push(seatNumber);
+		    }
 
-            document.getElementById("proceedButton").disabled = selectedSeats.length === 0;
-        }
+		    // Enable/Disable the 'Proceed' button based on selection
+		    document.getElementById("proceedButton").disabled = selectedSeats.length === 0;
+		}
+
 
 		function proceedToPayment() {
 		    // Collect selected seats information and set it to hidden input field
-		    document.getElementById("selectedSeats").value = JSON.stringify(selectedSeats);
+		    document.getElementById("selectedSeats").value = selectedSeats.join(',');
 			
 			if (selectedSeats.length === 0) {
 			        alert("Please select at least one seat.");
 			        return; // Prevent form submission if no seats are selected
 			    }
-				console.log(JSON.stringify(selectedSeats));
 		    // Encode selectedSeats for the URL
 		    const selectedSeatsParam = encodeURIComponent(JSON.stringify(selectedSeats));
 
 		    // Update the URL with the selected seats and amount (1000)
-		 //   const url = `/user/booking-summary?theatreName=${theatreName}&screen=${screenNumber}&show=${showId}&seats=${selectedSeatsParam}&amount=1000`;
+		 const url = `/user/booking-summary?amount=1000`;
 
 		    // Update the form's action attribute with the new URL
-		  //  document.getElementById("seatSelectionForm").action = url;
+		  document.getElementById("seatSelectionForm").action = url;
 
 		    // Submit the form with the updated action
-		   // document.forms['seatSelectionForm'].submit(); // This targets the form by name
+		   document.forms['seatSelectionForm'].submit(); // This targets the form by name
+			console.log(document.getElementById("selectedSeats").value);
 		}
 
 

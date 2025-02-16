@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,9 +50,11 @@
     </div>
 
     <!-- Button Section -->
+	<form:form action="/user/ticket" method="post" >
     <div class="text-center mt-4">
-        <a href="/proceed-to-payment" class="btn btn-custom btn-lg">Proceed to Payment</a>
+        <button  class="btn btn-custom btn-lg" type="submit">Book Ticket</button>
     </div>
+	</form:form>
 </div>
 
 <!-- Bootstrap JS and Popper.js -->

@@ -79,7 +79,7 @@
   			              screen.shows.forEach(showtime => {
 							console.log(showtime.movie.movieName);
   			                card.innerHTML += `
-  			                  <a href="/user/seatSelection?theater=${theatre.theatreName}&movie=${theatre.movieName}&showtime=${showtime.showTime}"
+  			                  <a href="/user/seatSelection?theater=${theatre.theatreName}&screen=${theatre.movieName}&show=${showtime.showTime}"
   			                     class="btn btn-secondary">
   			                    <div class="d-flex flex-column align-items-center">
   			                      <span>${showtime.showTime}</span>

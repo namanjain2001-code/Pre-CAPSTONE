@@ -11,6 +11,18 @@ import java.util.Set;
 @Table(name = "bookings")
 public class Booking {
 
+	public LocalDateTime getBookingTime() {
+		return bookingTime;
+	}
+
+
+
+
+
+	public void setBookingId(int bookingId) {
+		this.bookingId = bookingId;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "booking_id")

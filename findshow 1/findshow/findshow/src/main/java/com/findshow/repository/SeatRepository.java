@@ -8,4 +8,6 @@ public interface SeatRepository extends JpaRepository<Seat, Integer> {
 
 	List<Seat> findAllByShow_ShowId(int showId);
 
+	Seat findBySeatNumber(String seatNumber);
+
 }

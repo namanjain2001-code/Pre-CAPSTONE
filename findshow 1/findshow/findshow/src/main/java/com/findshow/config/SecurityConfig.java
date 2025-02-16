@@ -137,11 +137,11 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests((requests) -> requests
 //            		.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                .requestMatchers("/login","/register").permitAll()
                 .requestMatchers("/api/admin/register").hasRole("SUPERADMIN")
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/superadmin/**").hasRole("SUPERADMIN")
                 .requestMatchers("/user/**").hasRole("USER")
+                .requestMatchers("/login","/register").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form
@@ -161,7 +161,7 @@ public class SecurityConfig {
             )
             .sessionManagement(session -> session
                 .maximumSessions(2)
-                .maxSessionsPreventsLogin(true)// Optional, to prevent session fixation
+                // Optional, to prevent session fixation
             );
 
         return http.build();
@@ -173,13 +173,13 @@ public class SecurityConfig {
             StringBuilder targetUrl = new StringBuilder("/");
             if (authentication.getAuthorities().stream()
                     .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
-                targetUrl = new StringBuilder("/admin/");
+                targetUrl = new StringBuilder("/admin/dashboard");
             } else if(authentication.getAuthorities().stream()
                     .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_SUPERADMIN"))) {
-                targetUrl = new StringBuilder("/superadmin/");
+                targetUrl = new StringBuilder("/superadmin/dashboard");
             } else if(authentication.getAuthorities().stream()
                     .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_USER"))) {
-                targetUrl = new StringBuilder("/user/");
+                targetUrl = new StringBuilder("/user/dashboard");
             }
 
             response.sendRedirect(targetUrl.toString());
