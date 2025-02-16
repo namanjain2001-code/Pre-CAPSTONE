@@ -3,8 +3,13 @@ package com.findshow.controller;
 import com.findshow.model.Show;
 import com.findshow.model.Screen;
 import com.findshow.repository.ShowRepository;
+import com.findshow.service.ScreenService;
+import com.findshow.service.ShowService;
+import com.findshow.service.UserService;
 import com.findshow.repository.ScreenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +23,27 @@ public class ShowController {
 
     @Autowired
     private ScreenRepository screenRepository;
+    
+    @Autowired
+	private ScreenService screenService;
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+	private ShowService showService;
 
     // Show all shows
     @GetMapping("/shows")
     public String listShows(Model model) {
-        model.addAttribute("shows", showRepository.findAll());
+Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (authentication != null && authentication.isAuthenticated()) {
+            String currentUserName = authentication.getName(); 
+            int userId=userService.findByEmail(currentUserName).getUserId();
+            model.addAttribute("shows", showService.getShowsAndTheatresAndScreensByUserId(userId));
+            System.out.print( showService.getShowsAndTheatresAndScreensByUserId(userId));
+        }
         return "show-list";  // View name
     }
 

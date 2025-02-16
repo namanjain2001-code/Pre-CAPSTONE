@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${movie.name}-MovieDetails</title>
+<title>${movie.movieName}-MovieDetails</title>
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -55,8 +55,8 @@
 	<section class="hero-section"
 		style="background-image: url('https://via.placeholder.com/1200x500'); background-size: cover; background-position: center center;">
 		<div class="container py-5 text-center">
-			<h1 class="display-4">${movie.name}</h1>
-			<p class="lead">Genre: ${movie.genre} | Rating: ${movie.rating}</p>
+			<h1 class="display-4">${movie.movieName}</h1>
+			<p class="lead">Genre: ${movie.movieGenres} | Rating: ${movie.movieRated}</p>
 		</div>
 	</section>
 
@@ -67,20 +67,18 @@
 				<!-- Movie Details -->
 				<div class="card mb-4">
 					<img src="https://via.placeholder.com/300x450" class="card-img-top"
-						alt="${movie.name}">
+						alt="${movie.movieName}">
 					<div class="card-body">
-						<h5 class="card-title">${movie.name}</h5>
+						<h5 class="card-title">${movie.movieName}</h5>
+
 						<p class="card-text">
-							<strong>Cast:</strong> ${movie.cast}
-						</p>
-						<p class="card-text">
-							<strong>Description:</strong> ${movie.description}
+							<strong>Description:</strong> ${movie.movieDescription}
 						</p>
 						<div class="rating">
-							<strong>Rating:</strong> <span class="badge bg-warning text-dark">${movie.rating}</span>
+							<strong>Rating:</strong> <span class="badge bg-warning text-dark">${movie.movieRated}</span>
 						</div>
 
-						<a href="/user/showtimings/${movie.id}" class="btn btn-secondary mt-3">Book
+						<a href="/user/showtimings/${movie.movieId}" class="btn btn-secondary mt-3">Book
 							Ticket</a>
 
 					</div>
@@ -96,11 +94,11 @@
 						<h5 class="card-title">Movie Details</h5>
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item"><strong>Genre:</strong>
-								${movie.genre}</li>
+								${movie.movieGenres}</li>
 							
 
 							<li class="list-group-item"><strong>Rating:</strong> <span
-								class="star-rating"> ${movie.rating} </span></li>
+								class="star-rating"> ${movie.movieRated} </span></li>
 
 						</ul>
 

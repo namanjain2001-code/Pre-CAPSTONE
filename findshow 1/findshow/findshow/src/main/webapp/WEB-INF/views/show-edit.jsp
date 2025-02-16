@@ -1,59 +1,85 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="c" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<sec:csrfInput />
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
-<%@ taglib prefix="sql" uri="jakarta.tags.sql" %>
-<%@ taglib prefix="x" uri="jakarta.tags.xml" %>
-<%@ taglib prefix="func" uri="jakarta.tags.functions" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Show</title>
-    <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/style.css'/>">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 50px 0;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Edit Show</h2>
+<div class="container">
+    <h2>Edit Show</h2>
 
-<!-- Display the form to edit a show -->
-<form:form method="POST" action="<c:url value='/admin/show/edit/${show.id}'/>" modelAttribute="show">
-    <fieldset>
-        <legend>Show Information</legend>
+    <!-- The modelAttribute used here should match the object being passed to the JSP from the controller -->
+    <form:form method="POST" modelAttribute="show" action="/admin/show/edit/${show.showId}">
+        <div class="form-group">
+            <label for="screen">Screen</label>
+            <!-- Pre-select the screen using the current screenId -->
+            <form:select path="screen.screenId">
+                <form:options items="${screens}" itemValue="screenId" itemLabel="screenNumber" 
+                    itemValueSelected="${show.screen.screenId}" />
+            </form:select>
+        </div>
+        <div class="form-group">
+            <label for="time">Show Time</label>
+            <!-- Pre-populate the showTime with the existing value -->
+            <form:input path="showTime" id="time" type="time" value="${show.showTime}" required="true"/>
+        </div>
+        <div class="form-group">
+            <label for="eventDate">Show Date</label>
+            <!-- Pre-populate the showDate with the existing value -->
+            <form:input type="date" path="showDate" id="eventDate" value="${show.showDate}" required="true" />
+        </div>
 
-        <!-- Show Name -->
-        <label for="movieName">Movie Name:</label>
-        <input type="text" id="movieName" name="movieName" value="${show.movieName}" required />
-        <br/><br/>
-
-        <!-- Show Time -->
-        <label for="showTime">Show Time:</label>
-        <input type="datetime-local" id="showTime" name="showTime" value="${show.showTime}" required />
-        <br/><br/>
-
-        <!-- Select Screen -->
-        <label for="screen">Screen:</label>
-        <select id="screen" name="screen.id" required>
-            <option value="" disabled>Select Screen</option>
-            <c:forEach var="screen" items="${screens}">
-                <option value="${screen.id}" <c:if test="${screen.id == show.screen.id}">selected</c:if>>
-                    ${screen.screenName}
-                </option>
-            </c:forEach>
-        </select>
-        <br/><br/>
-
-        <!-- Submit Button -->
         <button type="submit">Save Changes</button>
-    </fieldset>
-</form:form>
+    </form:form>
 
-<!-- Back to Show List -->
-<a href="<c:url value='/admin/shows'/>">Back to Show List</a>
+</div>
 
 </body>
 </html>

@@ -210,12 +210,12 @@ footer {
 							<div class="col-md-3">
 								<div class="card">
 									<img class="card-img-top"
-										src="https://via.placeholder.com/300x200" alt="${movie.name}">
+										src="https://via.placeholder.com/300x200" alt="${movie.movieName}">
 									<div class="card-body">
-										<h5 class="card-title">${movie.name}</h5>
-										<p class="card-text">Genre: ${movie.genre}</p>
-										<p class="card-text">Rating: ${movie.rating}</p>
-										<a href="/user/movies/${movie.id}" class="btn btn-primary">View
+										<h5 class="card-title">${movie.movieName}</h5>
+										<p class="card-text">Genre: ${movie.movieGenres}</p>
+										<p class="card-text">Rating: ${movie.movieRated}</p>
+										<a href="/user/movies/${movie.movieId}" class="btn btn-primary">View
 											Details</a>
 									</div>
 								</div>

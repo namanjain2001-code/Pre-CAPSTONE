@@ -3,6 +3,8 @@ package com.findshow.model;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 // Screens POJO class
 
 @Entity
@@ -19,10 +21,20 @@ public class Screen {
 
     @ManyToOne
     @JoinColumn(name = "theatre_id")
+    @JsonBackReference
     private Theatre theatre;
 
     
-    @Column(name="screen_capacity")
+    public Screen(int screenId, int screenNumber, Theatre theatre, int screenCapacity, ScreenType screenType) {
+		super();
+		this.screenId = screenId;
+		this.screenNumber = screenNumber;
+		this.theatre = theatre;
+		this.screenCapacity = screenCapacity;
+		this.screenType = screenType;
+	}
+
+	@Column(name="screen_capacity")
     private int screenCapacity;
     
     public enum ScreenType {
@@ -33,7 +45,7 @@ public class Screen {
     private ScreenType screenType;
 
 
-
+    public Screen(){};
 
 	// Getters and Setters
 

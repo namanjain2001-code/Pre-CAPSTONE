@@ -88,13 +88,19 @@
         <!-- Theatre Selection -->
         <div class="form-group">
             <label for="theatre">Theatre</label>
-            <form:select path="theatreId" id="theatre" required="true">
-                <c:forEach items="${theatres}" var="theatre">
+            <form:select path="theatre.theatreId" id="theatre" required="true">
+                <c:forEach items="${theaters}" var="theatre">
                     <option value="${theatre.theatreId}">${theatre.theatreName}</option>
                 </c:forEach>
             </form:select>
         </div>
-
+		<div class="form-group">
+		        <label for="screenType">Screen Type</label><br>
+		        <c:forEach items="${screenTypes}" var="type">
+		            <input type="radio" id="screenType_${type}" name="screenType" value="${type}" required="true" />
+		            <label for="screenType_${type}">${type}</label>
+		        </c:forEach>
+		    </div>
         <!-- Submit Button -->
         <button type="submit">Add Screen</button>
         <a href="/admin/screens">

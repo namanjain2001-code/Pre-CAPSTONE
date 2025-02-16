@@ -1,82 +1,62 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show List</title>
+    <title>Show Screens</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 50px 0;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        h2 {
+        /* Custom styles if needed */
+        table th, table td {
             text-align: center;
-        }
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 12px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .action-buttons a {
-            margin: 0 5px;
-            text-decoration: none;
-            color: #007BFF;
-        }
-        .action-buttons a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Show List</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Show and Screen Details</h2>
 
-    <table>
-        <thead>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
             <tr>
-                <th>Show Name</th>
-                <th>Screen</th>
+                <th>Show Time</th>
+                <th>Show Date</th>
+                <th>Screen Name</th>
+                <th>Movie Name</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="show" items="${shows}">
-                <tr>
-                    <td>${show.screen.screenNumber}</td>
-                    <td class="action-buttons">
-                        <a href="/admin/show/edit/${show.showId}">Edit</a>
-                        <a href="/admin/show/delete/${show.showId}" onclick="return confirm('Are you sure?')">Delete</a>
-                    </td>
-                </tr>
+            <!-- Iterate over the screenShowsMap -->
+            <c:forEach items="${shows}" var="entry">
+                <!-- Extract Screen and its Shows -->
+                <c:forEach items="${entry.value}" var="show">
+                    <tr>
+                        <!-- Display show details -->
+                        <td>${show.showTime}</td>
+                        <td>${show.showDate}</td>
+                        <td>${entry.key.screenNumber}</td>
+                        <td>${empty show.movie.movieName ? '' : show.movie.movieName}</td>
+                        <td>
+                            <!-- Add any actions like Edit, Delete if necessary -->
+                            <a href="/admin/show/edit/${show.showId}" class="btn btn-primary btn-sm">Edit</a> 
+                            <a href="/admin/show/delete/${show.showId}" class="btn btn-danger btn-sm ml-2">Delete</a>
+                        </td>
+                    </tr>
+                </c:forEach>
             </c:forEach>
         </tbody>
     </table>
-
-    <br />
-    <a href="/admin/show/add">Add New Show</a>
 </div>
+
+<!-- Include Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

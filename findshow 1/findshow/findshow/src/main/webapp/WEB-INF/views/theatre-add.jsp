@@ -69,10 +69,8 @@
             <label for="noOfScreens">Number of Screens</label>
             <form:input path="noOfScreens" id="noOfScreens" required="true" type="number"/>
         </div>
-        <div class="form-group">
-            <label for="userId">UserId</label>
-            <form:input path="user.userId" id="userId" required="true" type="text" value="${currentUserId}" readonly="true" />
-        </div>
+
+            <form:input path="user.userId" id="userId" required="true" type="hidden" value="${currentUserId}" readonly="true" />
 
         <button type="submit">Add Theatre</button>
     </form:form>
