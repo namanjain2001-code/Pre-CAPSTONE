@@ -3,6 +3,8 @@ package com.findshow.model;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 // Theatres POJO class
 @Entity
 @Table(name = "theatres")
@@ -12,8 +14,19 @@ public class Theatre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "theatre_id")
     private int theatreId;
+    public Theatre(){};
+    public Theatre(int theatreId, String theatreName, String theatreLocation, int noOfScreens, List<Screen> screens,
+			Users user) {
+		super();
+		this.theatreId = theatreId;
+		this.theatreName = theatreName;
+		this.theatreLocation = theatreLocation;
+		this.noOfScreens = noOfScreens;
+		this.screens = screens;
+		this.user = user;
+	}
 
-    public List<Screen> getScreens() {
+	public List<Screen> getScreens() {
 		return screens;
 	}
 
@@ -42,6 +55,7 @@ public class Theatre {
     
 
     @OneToMany(mappedBy = "theatre")
+    @JsonManagedReference
     private List<Screen> screens;
 
     @ManyToOne

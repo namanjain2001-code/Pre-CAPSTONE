@@ -68,6 +68,7 @@
             <label for="noOfScreens">Number of Screens</label>
             <form:input path="noOfScreens" id="noOfScreens" value="${theatre.noOfScreens}" required="true" type="number"/>
         </div>
+		<form:input path="user.userId" id="userId" required="true" type="hidden" value="${currentUserId}" readonly="true" />
 
         <button type="submit">Save Changes</button>
     </form:form>

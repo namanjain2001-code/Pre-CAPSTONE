@@ -62,6 +62,14 @@
                 <form:options items="${screens}" itemValue="screenId" itemLabel="screenNumber" />
             </form:select>
         </div>
+        <div class="form-group">
+            <label for="time">Show Time</label>
+            <form:input path="showTime" id="time" type="time" required="true"/>
+        </div>
+		<div class="form-group">
+		            <label for="eventDate">Show Date</label>
+		            <form:input type="date" path="showDate" id="eventDate" required="true" />
+		        </div>
 
         <button type="submit">Add Show</button>
     </form:form>

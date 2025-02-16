@@ -44,13 +44,21 @@ public class TheatreController {
     // Show all theatres
     @GetMapping("/theatres")
     public String listTheatres( Model model ) {
-    	model.addAttribute("theatres", theatreRepository.findAll());
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (authentication != null && authentication.isAuthenticated()) {
+            String currentUserName = authentication.getName();  
+            int userId=userService.findByEmail(currentUserName).getUserId();
+
+            model.addAttribute("currentUserId", userId);
+            model.addAttribute("theatres", theatreRepository.findAllByUser_userId(userId));
+            }
         return "theatre-list";  // View name
     }
 
     // Add new theatre
     @RequestMapping("/theatre/add")
-    public String showAddTheatreForm(Model model,Principal principal) {
+    public String showAddTheatreForm(Model model) {
     	 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
          
          if (authentication != null && authentication.isAuthenticated()) {
@@ -72,6 +80,14 @@ public class TheatreController {
     // Edit theatre
     @GetMapping("/theatre/edit/{id}")
     public String showEditTheatreForm(@PathVariable("id") int id, Model model) {
+ Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         
+         if (authentication != null && authentication.isAuthenticated()) {
+             String currentUserName = authentication.getName();  // This is the username (email or username based on your setup)
+             int userId=userService.findByEmail(currentUserName).getUserId();
+
+             model.addAttribute("currentUserId", userId);
+             }
         model.addAttribute("theatre", theatreRepository.findById(id).orElse(null));
         return "theatre-edit";  // View name
     }
