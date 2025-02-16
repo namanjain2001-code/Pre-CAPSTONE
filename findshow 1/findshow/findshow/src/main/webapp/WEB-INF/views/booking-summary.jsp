@@ -42,8 +42,8 @@
         <div class="card-body">
             <p><strong>Theatre Name:</strong> ${theatreName}</p>
             <p><strong>Seat Numbers:</strong> ${seatNumbers}</p>
-            <p><strong>Date:</strong> ${date}</p>
-            <p><strong>Time:</strong> ${time}</p>
+            <p><strong>Date:</strong> ${show.showDate}</p>
+            <p><strong>Time:</strong> ${show.showTime}</p>
             <p><strong>Amount:</strong> ₹${amount}</p>
         </div>
     </div>

@@ -3,11 +3,13 @@ package com.findshow.model;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 // Theatres POJO class
 @Entity
 @Table(name = "theatres")
+@JsonInclude()
 public class Theatre {
 
     @Id

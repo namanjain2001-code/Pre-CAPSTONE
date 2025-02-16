@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface SeatRepository extends JpaRepository<Seat, Integer> {
 
+	List<Seat> findAllByShow_ShowId(int showId);
+
 }
