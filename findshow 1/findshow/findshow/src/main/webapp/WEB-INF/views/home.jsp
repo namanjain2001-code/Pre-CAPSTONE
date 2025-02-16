@@ -147,6 +147,13 @@ footer {
 					href="/login">Login</a></li>
 				<li class="nav-item"><a class="btn btn-outline-light ms-2"
 					href="/register">Register</a></li>
+					<li class="nav-item">
+					                <a class="nav-link" href="/user/notifications">
+					                    <i class="bi bi-bell" style="font-size: 1.5rem;"></i>
+					                    <!-- Optional: Badge for Unread Notifications -->
+					                    <span class="badge badge-danger" style="position: absolute; top: -5px; right: -5px; font-size: 0.8rem;">5</span>
+					                </a>
+					</li>
 			</ul>
 		</div>
 	</nav>
