@@ -57,7 +57,7 @@
 
     <div class="container">
         <h2>Admin Registration</h2>
-        <form:form method="POST" action="/api/admin/register" modelAttribute="user" onsubmit="return validateForm()">
+        <form:form method="POST" action="register" modelAttribute="user" onsubmit="return validateForm()">
 
             <!-- Name Input Field -->
             <div class="form-group">

@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.findshow.model.Notification;
 import com.findshow.model.Role;
 import com.findshow.model.Role.RoleName;
+import com.findshow.repository.NotificationRepository;
 import com.findshow.model.Users;
+import com.findshow.service.NotificationService;
 import com.findshow.service.RoleService;
 import com.findshow.service.UserService;
 
@@ -27,6 +32,10 @@ public class UserController {
     private RoleService roleService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+	private NotificationService notificationService;
+	@Autowired
+	private NotificationRepository notificationRepository;
     
     @GetMapping("/register")
     public String registerUser(Model model) {
@@ -49,6 +58,14 @@ public class UserController {
         roles.add(roleService.getRoleName(RoleName.ROLE_USER));
         user.setRoles(roles);
         userService.saveUser(user);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()) {
+            Notification notification = notificationService.welcomeNotification(user.getName());
+            notification.setNotificationId((Integer) null);
+            System.out.println(user.getUserId());
+            notification.setUser(user);
+            notificationRepository.save(notification);
+		}
         return "redirect:/user/dashboard";  // Redirect to dashboard after successful registration
     }
 
@@ -60,5 +77,5 @@ public class UserController {
 //        return "login";  // Return the login page
 //    }
 
-}
 
+}
