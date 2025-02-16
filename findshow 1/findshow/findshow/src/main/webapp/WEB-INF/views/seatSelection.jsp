@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +34,16 @@
         .seat.selected {
             background-color: #4CAF50;
             color: white;
+        }
+        .seat.occupied {
+            background-color: red; /* Occupied seats will also be red */
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .seat.occupied:hover {
+            transform: none;  /* Disable scaling on hover */
+            background-color: red;  /* Keep red background */
         }
 
         .seat .price-info {
@@ -92,26 +103,32 @@
         <div class="screen">SCREEN</div>
 
         <!-- Seat Selection Layout -->
-        <div class="seats-container">
-            <c:forEach var="row" items="${seatLayout}">
-                <div class="seats-row">
-                    <c:forEach var="seat" items="${row}">
-                        <div class="seat" 
-                             data-seat="${seat.seatNumber}" 
-                             onclick="selectSeat(this)">
-                            ${seat.seatNumber}
-                            <span class="price-info">₹ </span>
-                        </div>
-                    </c:forEach>
-                </div>
-            </c:forEach>
-        </div>
+        <form:form id="seatSelectionForm" method="post" >
+            <div class="seats-container">
+                <c:forEach var="row" items="${seatLayout}">
+                    <div class="seats-row">
+                        <c:forEach var="seat" items="${row}">
+                            <div class="seat 
+                                    <c:if test="${not empty seat.user}">occupied</c:if>" 
+                                 data-seat="${seat.seatNumber}" 
+                                 data-user="${seat.user}" 
+                                 onclick="selectSeat(this)">
+                                ${seat.seatNumber}
+                                <span class="price-info">₹ </span>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </c:forEach>
+            </div>
 
-        <!-- Proceed Button -->
-        <div class="text-center">
-            <button class="btn btn-primary" id="proceedButton" disabled onclick="proceedToPayment()">Proceed to Payment</button>
-        </div>
+            <!-- Proceed Button -->
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" id="proceedButton" disabled onclick="proceedToPayment()">Proceed to Payment</button>
+            </div>
 
+            <!-- Hidden field to store selected seats -->
+            <input type="hidden" id="selectedSeats" name="selectedSeats">
+        </form:form>
     </div>
 
     <!-- Footer -->
@@ -124,25 +141,42 @@
 
         function selectSeat(seat) {
             const seatNumber = seat.getAttribute('data-seat');
-            const seatPrice = seat.getAttribute('data-price');
-            const seatType = seat.getAttribute('data-type');
+            const seatUser = seat.getAttribute('data-user');
 
             if (seat.classList.contains('selected')) {
                 seat.classList.remove('selected');
                 selectedSeats = selectedSeats.filter(item => item.seatNumber !== seatNumber);
-            } else {
+            } else if (!seat.classList.contains('occupied')) {
                 seat.classList.add('selected');
-                selectedSeats.push({ seatNumber, seatPrice, seatType });
+                selectedSeats.push({ seatNumber, seatUser });
             }
 
             document.getElementById("proceedButton").disabled = selectedSeats.length === 0;
         }
 
-        function proceedToPayment() {
-            // Collect selected seats information and send to the server for payment
-            console.log("Proceeding with seats:", selectedSeats);
-            // Here you can make an AJAX call to submit the selected seats
-        }
+		function proceedToPayment() {
+		    // Collect selected seats information and set it to hidden input field
+		    document.getElementById("selectedSeats").value = JSON.stringify(selectedSeats);
+			
+			if (selectedSeats.length === 0) {
+			        alert("Please select at least one seat.");
+			        return; // Prevent form submission if no seats are selected
+			    }
+				console.log(JSON.stringify(selectedSeats));
+		    // Encode selectedSeats for the URL
+		    const selectedSeatsParam = encodeURIComponent(JSON.stringify(selectedSeats));
+
+		    // Update the URL with the selected seats and amount (1000)
+		 //   const url = `/user/booking-summary?theatreName=${theatreName}&screen=${screenNumber}&show=${showId}&seats=${selectedSeatsParam}&amount=1000`;
+
+		    // Update the form's action attribute with the new URL
+		  //  document.getElementById("seatSelectionForm").action = url;
+
+		    // Submit the form with the updated action
+		   // document.forms['seatSelectionForm'].submit(); // This targets the form by name
+		}
+
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

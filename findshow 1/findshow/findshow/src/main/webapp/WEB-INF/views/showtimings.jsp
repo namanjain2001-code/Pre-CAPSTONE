@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,117 +9,116 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <script>
-  	// Function to update the showtimes when the date is changed
-  	function updateShowtimes() {
-  	  const selectedDate = document.getElementById("showDate").value;  // Get the selected date from the date picker
+    	// Function to update the showtimes when the date is changed
+    	function updateShowtimes() {
+    	  const selectedDate = document.getElementById("showDate").value;  // Get the selected date from the date picker
 
-  	  if (!selectedDate) {
-  	    console.error("Please select a valid date");
-  	    return; // If no date is selected, don't proceed with fetching
-  	  }
+    	  if (!selectedDate) {
+    	    console.error("Please select a valid date");
+    	    return; // If no date is selected, don't proceed with fetching
+    	  }
 
-  	  // If date is selected, proceed to fetch showtimes
-  	  fetchShows(selectedDate);  // Pass the selected date to fetchShows function
-  	}
+    	  // If date is selected, proceed to fetch showtimes
+    	  fetchShows(selectedDate);  // Pass the selected date to fetchShows function
+    	}
 
 
-  	function fetchShows(date) {
+    	function fetchShows(date) {
 
-  	  // Function to extract movieId from the current URL
-  	  function getMovieIdFromUrl() {
-  	    const pathname = window.location.pathname;
-  	    const regex = /\/user\/showtimings\/(\d+)/;  // Match "/user/showtimings/" followed by digits (movieId)
-  	    const match = pathname.match(regex);
-  	    
-  	    if (match && match[1]) {
-  	      return match[1];  // movieId
-  	    } else {
-  	      console.error("movieId not found in the current URL");
-  	      return null;
-  	    }
-  	  }
+    	  // Function to extract movieId from the current URL
+    	  function getMovieIdFromUrl() {
+    	    const pathname = window.location.pathname;
+    	    const regex = /\/user\/showtimings\/(\d+)/;  // Match "/user/showtimings/" followed by digits (movieId)
+    	    const match = pathname.match(regex);
+    	    
+    	    if (match && match[1]) {
+    	      return match[1];  // movieId
+    	    } else {
+    	      console.error("movieId not found in the current URL");
+    	      return null;
+    	    }
+    	  }
 
-  	  const movieId = getMovieIdFromUrl();
-  		let temp=new Date(date);
-  		let showDate=temp.toISOString().split('T')[0];
-  	
-  	  if (movieId) {
-		let apiUrl=`user/api/theatres?movieId=${movieId}&date=`+showDate;
+    	  const movieId = getMovieIdFromUrl();
+    		let temp=new Date(date);
+    		let showDate=temp.toISOString().split('T')[0];
+    	
+    	  if (movieId) {
+  		let apiUrl=`user/api/theatres?movieId=${movieId}&date=`+showDate;
 
-  		fetch(apiUrl)
-  	      .then(response => response.json())
-  	      .then(data => {
-			console.log(data);
-  	        // Dynamically create the HTML for the theater, screens, and showtimes
-  	        const theaterCards = document.getElementById("theaterCards");
-  	        theaterCards.innerHTML = ''; // Clear current list
+    		fetch(apiUrl)
+    	      .then(response => response.json())
+    	      .then(data => {
+  			console.log(data);
+    	        // Dynamically create the HTML for the theater, screens, and showtimes
+  			const theaterCards = document.getElementById("theaterCards");
+  			          theaterCards.innerHTML = ''; // Clear previous cards
+  			          // Loop through the data to create theater cards
+  			          Object.keys(data).forEach(theatreId => {
+  			            const card = document.createElement("div");
+  						const theatre = data[theatreId].theatre;
+  			            card.classList.add("col-md-4", "mb-4");
+						const name=theatre.theatreName;
+  			            card.innerHTML = `
+  			              <div class="card">
+  			                <div class="card-body">
+  			                  <h5 class="card-title">${name}</h5>
+  			                  <p>Location: ${theatre.theatreLocation}</p>
+  			                  <div class="showtime-btn-container">
+  			            `;
+  					  console.log(name);
 
-  	        // Loop through theaters and screens to create cards dynamically
-  	        for (const [theater, screens] of Object.entries(data)) {
-  	          const card = document.createElement("div");
-  	          card.classList.add("col-md-4");
-  	          card.classList.add("mb-4");
+  			            // Loop through screens and showtimes
+  			            theatre.screens.forEach(screen => {
+  			              card.innerHTML += `
+  			                <h6>Screen: ${screen.screenNumber} (${screen.screenType})</h6>
+  			                <div class="showtime-btn-container">
+  			              `;
+						  console.log(screen.screenNumber)
 
-  	          // Display theater name and location
-  	          card.innerHTML = `
-  	              <div class="card">
-  	                  <div class="card-body">
-  	                      <h5 class="card-title">${theater.theatreName}</h5>
-  	                      <p>Location: ${screens}</p>
-  	                      <div class="d-flex flex-wrap">
-  	          `;
+  			              screen.shows.forEach(showtime => {
+							console.log(showtime.movie.movieName);
+  			                card.innerHTML += `
+  			                  <a href="/user/seatSelection?theater=${theatre.theatreName}&movie=${theatre.movieName}&showtime=${showtime.showTime}"
+  			                     class="btn btn-secondary">
+  			                    <div class="d-flex flex-column align-items-center">
+  			                      <span>${showtime.showTime}</span>
+  			                      <small class="text-muted">${screen.screenType}</small>
+  			                    </div>
+  			                  </a>
+  			                `;
+  			              });
 
-  	          // Loop through screens for this theater
-  	          for (const [screen, showtimes] of Object.entries(screens)) {
-  	            card.innerHTML += `
-  	                <h6>${screen}</h6>
-  	                <div class="d-flex flex-wrap">
-  	            `;
+  			              card.innerHTML += '</div>';
+  			            });
 
-  	            // Loop through the showtimes for this screen
-  	            showtimes.forEach(show => {
-  	              card.innerHTML += `
-  	                  <a href="/user/seatSelection?theater=${theater}&screen=${screen}&showtime=${show.time}&movie=${show.movie}"
-  	                     class="btn btn-secondary me-2 mb-2">
-  	                      <div class="d-flex flex-column align-items-center">
-  	                          <span>${show.time}</span> <small class="text-muted">${show.movie}</small>
-  	                      </div>
-  	                  </a>
-  	              `;
-  	            });
+  			            card.innerHTML += '</div></div></div>';
+  			            theaterCards.appendChild(card);
+  			          });
+  			        })
+  			        .catch(error => console.error("Error fetching theaters:", error));
+    	  }
+    	}
 
-  	            card.innerHTML += `</div>`; // Close screen div
-  	          }
+        function updateDatePickerLimits() {
+          const today = new Date();
+          const minDate = today.toISOString().split('T')[0]; // YYYY-MM-DD format
+          const maxDate = new Date();
+          maxDate.setDate(today.getDate() + 2); // Set max date to 2 days from today
+          const maxDateStr = maxDate.toISOString().split('T')[0]; // YYYY-MM-DD format
 
-  	          card.innerHTML += `</div></div></div>`; // Close card and container
-  	          theaterCards.appendChild(card);
-  	        }
-  	      })
-  	      .catch(error => {
-  	        console.error("Error fetching theaters:", error);
-  	      });
-  	  }
-  	}
+          // Set the min and max date for the date picker
+          document.getElementById("showDate").setAttribute("min", minDate);
+          document.getElementById("showDate").setAttribute("max", maxDateStr);
 
-      function updateDatePickerLimits() {
-        const today = new Date();
-        const minDate = today.toISOString().split('T')[0]; // YYYY-MM-DD format
-        const maxDate = new Date();
-        maxDate.setDate(today.getDate() + 2); // Set max date to 2 days from today
-        const maxDateStr = maxDate.toISOString().split('T')[0]; // YYYY-MM-DD format
-
-        // Set the min and max date for the date picker
-        document.getElementById("showDate").setAttribute("min", minDate);
-        document.getElementById("showDate").setAttribute("max", maxDateStr);
-
-        // Set the current date as the default value
-        document.getElementById("showDate").value = minDate;
-      }
-  	window.onload = function () {
-  	      updateDatePickerLimits(); // Set date limits and default value
-  		  updateShowtimes();
-  	    }
-    </script>
+          // Set the current date as the default value
+          document.getElementById("showDate").value = minDate;
+        }
+    	window.onload = function () {
+    	      updateDatePickerLimits(); // Set date limits and default value
+    		  updateShowtimes();
+    	    }
+      </script>
 </head>
 
 <body>
@@ -159,30 +158,7 @@
     </div>
 
     <div class="row" id="theaterCards">
-      <c:forEach var="theater" items="${theaters}">
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <div class="card-body">
-              <h5 class="card-title">${theater.name}</h5>
-              <p>${theater.location}</p>
-              <div class="d-flex flex-wrap">
-                <c:forEach var="showtime" items="${theater.showtimes}">
-                  <c:set var="time" value="${showtime['time']}" />
-                  <c:set var="screenType" value="${showtime['screenType']}" />
-                  <a href="/user/seatSelection?theater=${theater.name}&movie=${movie.movieName}&showtime=${time}&screenNumber=${screenNumber}"
-                    class="btn btn-secondary me-2 mb-2">
-                    <div class="d-flex flex-column align-items-center">
-                      <span>${time}</span> <small class="text-muted">${screenType}</small>
-                      <small class="text-muted" style="font-style: italic;">Optional</small>
-                    </div>
-                  </a>
-                </c:forEach>
-              </div>
-            </div>
-          </div>
-        </div>
-      </c:forEach>
-    </div>
+      
   </div>
 
   <footer class="bg-dark text-white text-center py-3">

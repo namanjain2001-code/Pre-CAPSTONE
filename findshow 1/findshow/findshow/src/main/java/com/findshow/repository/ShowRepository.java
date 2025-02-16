@@ -24,5 +24,6 @@ public interface ShowRepository extends JpaRepository<Show, Integer> {
 	List<Show> findAllByScreen_ScreenId(int screenId);
 	List<Show> findAllByMovie_MovieId(int movieId);
 	List<Show> findAllByMovie_MovieIdAndShowDate(int movieId,LocalDate showDate);
+	Show findByShowId(int showId);
 
 }

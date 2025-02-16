@@ -47,8 +47,24 @@ public class Movie {
     public enum MovieType {
         IMAX, REGULAR
     }
+    public Movie() {};
 
-    // Getters and Setters
+    public Movie(int movieId, String movieName, String movieDescription, int movieDuration, String movieRated,
+			String movieLanguages, String movieGenres, String movieThumbnail, MovieType movieType,
+			LocalDate movieReleaseDate) {
+		super();
+		this.movieId = movieId;
+		this.movieName = movieName;
+		this.movieDescription = movieDescription;
+		this.movieDuration = movieDuration;
+		this.movieRated = movieRated;
+		this.movieLanguages = movieLanguages;
+		this.movieGenres = movieGenres;
+		this.movieThumbnail = movieThumbnail;
+		this.movieType = movieType;
+		this.movieReleaseDate = movieReleaseDate;
+	}
+	// Getters and Setters
     public int getMovieId(){
         return movieId;
     }
