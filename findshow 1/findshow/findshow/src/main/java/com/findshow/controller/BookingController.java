@@ -1,25 +1,32 @@
 package com.findshow.controller;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.Set;
+import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.findshow.model.Booking;
 import com.findshow.model.Seat;
 import com.findshow.model.Seat.SeatType;
 import com.findshow.model.Show;
 import com.findshow.model.Users;
+import com.findshow.repository.BookingRepository;
+import com.findshow.repository.DashboardRepository;
 import com.findshow.repository.SeatRepository;
 import com.findshow.repository.ShowRepository;
 import com.findshow.repository.UserRepository;
+import com.findshow.service.SeatService;
 import com.findshow.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -32,6 +39,8 @@ public class BookingController {
     private ShowRepository showRepository;
     @Autowired
     private SeatRepository seatRepository;
+    @Autowired
+    private SeatService seatService;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -83,16 +92,23 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
     }
  
     @PostMapping("/user/ticket")
+    @Transactional
     public String proceedToPayment( Model model, HttpSession session) {
     	List<Seat> persistedSeats = (List<Seat>) session.getAttribute("persistedSeats");
         
         if (persistedSeats != null) {
             model.addAttribute("persistedSeats", persistedSeats);
             // Add additional details (like customer name, etc.)
+            Booking booking = new Booking();
+            booking.setBookingTime(LocalDateTime.now());
+            booking.setStatus(Booking.BookingStatus.BOOKED);
+            Set<Seat> seatsB=new HashSet();
             for(Seat seats:persistedSeats) {
-            	
-            	seatRepository.save(seats);
+            	seats.setBooking(booking);
+            	seatsB.add(seats);
             }
+            bookingRepository.save(booking);
+            seatRepository.saveAll(seatsB);
         }
         session.removeAttribute("persistedSeats");
         return "ticket"; // Redirects to the payment page where user enters payment details

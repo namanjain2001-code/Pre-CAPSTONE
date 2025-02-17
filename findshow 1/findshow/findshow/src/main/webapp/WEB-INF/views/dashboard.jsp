@@ -33,7 +33,7 @@
             width: 250px;
             background-color: #2c3e50;
             color: white;
-            padding-top: 20px;
+            padding-top: 10px;
             position: fixed;
             height: 100%;
             top: 0;
@@ -59,7 +59,7 @@
             color: #ecf0f1;
             text-decoration: none;
             font-size: 16px;
-            margin-bottom: 15px;
+            
             border-radius: 5px;
             transition: background-color 0.3s ease, padding-left 0.3s ease;
         }
@@ -196,8 +196,8 @@
             }
  
             .sidebar a {
-                padding: 15px;
-                font-size: 14px;
+                padding: 10px;
+                font-size: 12px;
             }
         }
     </style>
@@ -218,7 +218,7 @@
         <a href="<c:url value='/admin/shows' />">Shows List</a>
         <a href="<c:url value='/admin/screens' />">Screen List</a>
        
-        <h4> <a href="/login" style="color: red; class="btn btn-primary btn-add">Logout</a></h4>
+        <h4> <a href="/logout" style="color: red; class="btn btn-primary btn-add">Logout</a></h4>
     </div>
  
     <!-- Main Content -->

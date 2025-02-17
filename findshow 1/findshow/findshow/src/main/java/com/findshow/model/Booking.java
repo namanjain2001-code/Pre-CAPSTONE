@@ -1,36 +1,20 @@
 package com.findshow.model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
-// Booking POJO class
+// Booking Entity class
 @Entity
 @Table(name = "bookings")
 public class Booking {
 
-	public LocalDateTime getBookingTime() {
-		return bookingTime;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "booking_id")
+    private int bookingId;
 
-
-
-
-
-	public void setBookingId(int bookingId) {
-		this.bookingId = bookingId;
-	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "booking_id")
-	private int bookingId;
-
-
-    @OneToMany
-    @JoinColumn(name = "seat_id")
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Seat> seats;
 
     @Column(name = "booking_time", updatable = false)
@@ -40,41 +24,40 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
 
+    public enum BookingStatus {
+        BOOKED, CANCELLED
+    }
 
-	public enum BookingStatus {
-		BOOKED, CANCELLED
-	}
+    // Getters and Setters
+    public int getBookingId() {
+        return bookingId;
+    }
 
-	
-	// Getters and Setters
-	public int getBookingId() {
-		return bookingId;
-	}
-
-
-   
-
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
+    }
 
     public Set<Seat> getSeats() {
-		return seats;
-	}
+        return seats;
+    }
 
-	public void setSeats(Set<Seat> seats) {
-		this.seats = seats;
-	}
+    public void setSeats(Set<Seat> seats) {
+        this.seats = seats;
+    }
 
+    public LocalDateTime getBookingTime() {
+        return bookingTime;
+    }
 
-	public void setBookingTime(LocalDateTime bookingTime) {
-		this.bookingTime = bookingTime;
-	}
+    public void setBookingTime(LocalDateTime bookingTime) {
+        this.bookingTime = bookingTime;
+    }
 
-	public BookingStatus getStatus() {
-		return status;
-	}
+    public BookingStatus getStatus() {
+        return status;
+    }
 
-	public void setStatus(BookingStatus status) {
-		this.status = status;
-	}
-
-	
+    public void setStatus(BookingStatus status) {
+        this.status = status;
+    }
 }
