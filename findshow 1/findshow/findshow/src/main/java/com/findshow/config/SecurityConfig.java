@@ -141,7 +141,7 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/superadmin/**").hasRole("SUPERADMIN")
                 .requestMatchers("/user/**").hasRole("USER")
-                .requestMatchers("/login","/register").permitAll()
+                .requestMatchers("/login","/register","/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form
