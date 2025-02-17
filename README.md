@@ -29,7 +29,7 @@ git clone https://github.com/YOUR_USERNAME/Pre-CAPSTONE.git
 ## 5.  Select Maven Project.
 ## 6.  Browse and select the path for the cloned directory.
 ## 7.  Build the pom.xml file.
-## 8.  Run the dataSetup/setup.sql script in MySQL.
+## 8.  Run the dataSetup/Dump20250211.sql script in MySQL.
 ## 9.  Edit the password in the application.properties file according to your setup.
 ## 10. Click on Run Configurations.
 ## 11. Select Java Application.
