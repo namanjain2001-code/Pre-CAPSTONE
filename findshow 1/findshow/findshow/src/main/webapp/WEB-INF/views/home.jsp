@@ -37,6 +37,13 @@
 								placeholder="Search for movies..." required />
 							<button type="submit">Search</button>
 						</form>
+						
+						<li class="nav-item">
+						                <a class="nav-link" href="/user/notifications">
+						                    <i class="bi bi-bell" style="font-size: 1.5rem;"></i>
+						                    <span class="badge badge-danger" style="position: absolute; top: 0; right: 0; font-size: 0.8rem;">5</span>
+						                </a>
+						 </li>
 					</ul>
 					<div class="nav-item">
 					    <button class="btn btn-secondary ml-3" onclick="window.location.href='/user/bookings';">My Bookings</button>

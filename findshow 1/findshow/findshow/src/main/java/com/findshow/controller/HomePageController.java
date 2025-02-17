@@ -76,15 +76,7 @@ public class HomePageController {
 	@GetMapping("/")
 	public String showHomePage(Model model) {
 		model.addAttribute("movies",movieRepository.findAll());
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication != null && authentication.isAuthenticated()) {
-            String currentUserName = authentication.getName();  
-            Users user=userService.findByEmail(currentUserName);
-            Notification notification=notificationService.loginNotification(user.getName());
-            notification.setNotificationId((Integer) null);
-            notification.setUser(user);
-            notificationRepository.save(notification);
-      }
+		
 		
 		return "home";
 	}

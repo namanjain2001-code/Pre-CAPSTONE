@@ -56,6 +56,16 @@ public class UserController {
     	Users user = new Users();
     	model.addAttribute("user", user);
     	model.addAttribute("movies",movieRepository.findAll());
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()) {
+            String currentUserName = authentication.getName();  
+            Users usr=userService.findByEmail(currentUserName);
+            Notification notification=notificationService.loginNotification(usr.getName());
+            System.out.println(usr.getName());
+            notification.setNotificationId((Integer) null);
+            notification.setUser(usr);
+            notificationRepository.save(notification);
+      }
     	return "home";  // Return the registration page
     }
 
