@@ -6,6 +6,7 @@ import com.findshow.repository.ShowRepository;
 import com.findshow.service.ScreenService;
 import com.findshow.service.ShowService;
 import com.findshow.service.UserService;
+import com.findshow.repository.MovieRepository;
 import com.findshow.repository.ScreenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,9 @@ public class ShowController {
 
     @Autowired
     private ScreenRepository screenRepository;
+    
+    @Autowired
+    private MovieRepository movieRepository;
     
     @Autowired
 	private ScreenService screenService;
@@ -56,8 +60,9 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
     }
 
     @PostMapping("/show/add")
-    public String addShow(@ModelAttribute Show show) {
+    public String addShow(@ModelAttribute Show show,Model model) {
         showRepository.save(show);
+        model.addAttribute("movies", movieRepository.findAll());
         return "redirect:/admin/shows";  // Redirect to show list after adding
     }
 

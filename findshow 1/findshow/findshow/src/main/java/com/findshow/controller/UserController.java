@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.findshow.model.Notification;
 import com.findshow.model.Role;
 import com.findshow.model.Role.RoleName;
+import com.findshow.repository.MovieRepository;
 import com.findshow.repository.NotificationRepository;
 import com.findshow.model.Users;
 import com.findshow.service.NotificationService;
@@ -28,6 +29,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private MovieRepository movieRepository;
     @Autowired
     private RoleService roleService;
     @Autowired
@@ -42,6 +45,13 @@ public class UserController {
         Users user = new Users();
         model.addAttribute("user", user);
         return "register";  // Return the registration page
+    }
+    @GetMapping("/user/dashboard")
+    public String getDashboard(Model model) {
+    	Users user = new Users();
+    	model.addAttribute("user", user);
+    	model.addAttribute("movies",movieRepository.findAll());
+    	return "home";  // Return the registration page
     }
 
     @PostMapping("/register")
@@ -69,7 +79,7 @@ public class UserController {
         return "redirect:/user/dashboard";  // Redirect to dashboard after successful registration
     }
 
-
+    
     
     // Custom Login Page
 //    @RequestMapping("/login")

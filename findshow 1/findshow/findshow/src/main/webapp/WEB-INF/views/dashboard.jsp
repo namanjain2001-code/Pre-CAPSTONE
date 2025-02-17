@@ -92,6 +92,11 @@
             font-weight: 500;
             margin-bottom: 20px;
         }
+		h4 {
+		           font-size: 30px;
+		           font-weight: 500;
+		           margin-bottom: 70px;
+		       }
  
         .btn-logout {
             background-color: #e74c3c;
@@ -240,7 +245,7 @@
  
         <div class="button-container">
             <!-- Additional buttons can be added here -->
-           <h4> <a style="color: black; button class="toggle-dark-mode" onclick="toggleDarkMode()">DarkMode</a></h4>
+          <a style="color: black; class="btn btn-primary" onclick="toggleDarkMode()">DarkMode</a>
         </div>
           
       

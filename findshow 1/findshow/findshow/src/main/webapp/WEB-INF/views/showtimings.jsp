@@ -26,52 +26,50 @@
       </button>
 
       <!-- Navbar Links -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <!-- Search Bar on the Left -->
-          <form class="d-flex me-auto" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search for movies..." aria-label="Search">
-            <button class="btn btn-outline-light" type="submit">Search</button>
-          </form>
-        </ul>
-      </div>
-    </div>
+	  <div class="collapse navbar-collapse" id="navbarNav">
+	  				<ul class="navbar-nav ms-auto">
+	  					<form action="/user/searchMovie" method="get">
+	  						<input type="text" name="movieName"
+	  							placeholder="Search for movies..." required />
+	  						<button type="submit">Search</button>
+	  					</form>
+	   
+	  				</ul>
+	  			</div>
   </nav>
 
   <div class="container my-5">
     <h2 class="text-center">${movie.movieName}-ShowTimings</h2>
     <p class="text-center">Select your showtime</p>
 
-
-
     <div class="row" id="theaterCards">
-		<div class="row">
-			
-					<c:forEach var="theater" items="${allShows}">
-						<div class="col-md-4">
-							<div class="card mb-4">
-								<div class="card-body">
-									<h5 class="card-title">${theater.theatreName}</h5>
-									<p>${theater.theatreLocation}</p>
-									<div class="d-flex flex-wrap">
-										<c:forEach var="showtime" items="${theater.showtimes}">
-											<c:set var="time" value="${showtime['time']}" />
-											<c:set var="screenType" value="${showtime['screenType']}" />
-											<a
-												href="/seat-selection?theater=${theater.theatreName}&screen=${screenType}&show=${time}"
-												class="btn btn-secondary me-2 mb-2">
-												<div class="d-flex flex-column align-items-center">
-													<span>${time}</span> <small class="text-muted">${screenType}</small>
-													<small class="text-muted" style="font-style: italic;">Optional</small>
-												</div>
-											</a>
-										</c:forEach>
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
+      <c:forEach var="theater" items="${allShows}">
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">${theater.theatreName}</h5>
+              <p>${theater.theatreLocation}</p>
+              <div class="d-flex flex-wrap">
+                <c:forEach var="screen" items="${theater.screens}">
+                  <c:forEach var="show" items="${screen.shows}">
+                    <c:set var="time" value="${show.showTime}" />
+                    <c:set var="screenType" value="${screen.screenType}" />
+                    <a
+                      href="/user/seatSelection?theater=${theater.theatreName}&screen=${screen.screenNumber}&show=${show.showId}"
+                      class="btn btn-secondary me-2 mb-2">
+                      <div class="d-flex flex-column align-items-center">
+                        <span>${time}</span>
+                        <small class="text-muted">${screenType}</small>
+                        <small class="text-muted" style="font-style: italic;">Screen ${screen.screenNumber}</small>
+                      </div>
+                    </a>
+                  </c:forEach>
+                </c:forEach>
+              </div>
+            </div>
+          </div>
+        </div>
+      </c:forEach>
     </div>
 
   </div>

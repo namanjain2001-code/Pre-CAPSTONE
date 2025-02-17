@@ -12,6 +12,7 @@ import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,6 +62,7 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
     }
 
     @PostMapping("/screen/add")
+    @Transactional
     public String addScreen(@ModelAttribute Screen screen) {
         screenRepository.save(screen);
         return "redirect:/admin/screens";  // Redirect to screen list after adding

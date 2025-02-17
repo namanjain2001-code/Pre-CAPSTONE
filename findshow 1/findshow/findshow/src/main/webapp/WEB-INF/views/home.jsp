@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
-
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,152 +14,34 @@
 <!-- <link rel="stylesheet" href="/css/home.css"> -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/home.css" />
-<style>
-body {
-	font-family: Arial, sans-serif;
-}
-
-.navbar-nav .nav-item {
-	margin-left: 30px;
-}
-
-.custom-image {
-	object-fit: cover;
-	height: 100%;
-}
-
-.card {
-	margin-bottom: 20px;
-	border: none;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card img {
-	height: 200px;
-	object-fit: cover;
-}
-
-.card-title {
-	font-size: 1.2em;
-	font-weight: bold;
-}
-
-.card-text {
-	font-size: 1em;
-	color: #555;
-}
-
-.hero {
-	background-color: #f8f9fa;
-}
-
-.hero .img-fluid {
-	max-height: 400px;
-	object-fit: cover;
-}
-
-.hero .col-md-4 {
-	padding: 0;
-}
-
-.hero h1 {
-	font-size: 3rem;
-	font-weight: bold;
-}
-
-.hero p {
-	font-size: 1.25rem;
-}
-
-.hero .btn-secondary {
-	font-size: 1.25rem;
-	padding: 12px 30px;
-}
-
-.custom-image {
-	width: 100%;
-	height: auto;
-	max-width: 700px;
-}
-
-.card img {
-	height: 250px;
-	object-fit: cover;
-	border-radius: 8px 8px 0 0;
-}
-
-footer {
-	background-color: #222;
-	color: #ccc;
-}
-
-/* Initial State of Images */
-.fly-in-image {
-	opacity: 0;
-	transform: translateX(-100%);
-	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-/* When the images are in the viewport */
-.visible {
-	opacity: 1;
-	transform: translateX(0);
-}
-
-/* Optional: Add some delay to each image to stagger the animation */
-.fly-in-image:nth-child(1) {
-	transition-delay: 0.2s;
-}
-
-.fly-in-image:nth-child(2) {
-	transition-delay: 0.4s;
-}
-
-.fly-in-image:nth-child(3) {
-	transition-delay: 0.6s;
-}
-</style>
+ 
 </head>
 <body>
-
-	<!-- Navbar -->
+ 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="/user/">FindShow</a>
-
-		<!-- Navbar Toggle Button for Mobile -->
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-			data-bs-target="#navbarNav" aria-controls="navbarNav"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav ml-auto">
-				<!-- <li class="nav-item ms-3">
-					<form class="d-flex me-auto" role="search">
-						<input class="form-control me-2" type="search"
-							placeholder="Search for movies..." aria-label="Search">
-						<button class="btn btn-outline-light" type="submit">Search</button>
-					</form>
-				</li> -->
-				<li class="nav-item"><a class="btn btn-outline-light ms-2"
-					href="/login">Login</a></li>
-				<li class="nav-item"><a class="btn btn-outline-light ms-2"
-					href="/register">Register</a></li>
-					<li class="nav-item">
-					                <a class="nav-link" href="/user/notifications">
-					                    <i class="bi bi-bell" style="font-size: 1.5rem;"></i>
-					                    <!-- Optional: Badge for Unread Notifications -->
-					                    <span class="badge badge-danger" style="position: absolute; top: -5px; right: -5px; font-size: 0.8rem;">5</span>
-					                </a>
-					</li>
-			</ul>
-		</div>
-	</nav>
-
-
-
+			<a class="navbar-brand" href="/user/">FindShow</a>
+	 
+			<!-- Navbar Toggle Button for Mobile -->
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+	 
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					
+						
+						<form action="/user/searchMovie" method="get">
+							<input type="text" name="movieName"
+								placeholder="Search for movies..." required />
+							<button type="submit">Search</button>
+						</form>
+				</ul>
+			</div>
+		</nav>
+ 
+ 
 	<!-- Hero Section -->
 	<section class="hero py-5">
 		<div class="container">
@@ -181,12 +63,11 @@ footer {
 			</div>
 		</div>
 	</section>
-
-
+ 
+ 
 	<section id="language-tabs">
-
 		<div class="container my-5">
-
+			<!-- Language Tabs -->
 			<ul class="nav nav-pills justify-content-center" id="languageTab"
 				role="tablist">
 				<li class="nav-item" role="presentation"><a
@@ -203,103 +84,117 @@ footer {
 					id="tamil-tab" data-toggle="pill" href="#tamil" role="tab"
 					aria-controls="tamil" aria-selected="false">Tamil</a></li>
 			</ul>
-
-
-			<!-- Tab Content Section -->
+ 
+			<!-- Tab Content -->
 			<div class="tab-content mt-3" id="languageTabContent">
-				<!-- Hindi Tab Content -->
 				<div class="tab-pane fade show active" id="hindi" role="tabpanel"
 					aria-labelledby="hindi-tab">
 					<h3 class="text-center">Latest Releases</h3>
-					<div class="row">
-						<!-- Loop through each movie and display in a card -->
+					<div class="row" id="hindi-movies">
+						<!-- Movie Cards for Hindi -->
 						<c:forEach var="movie" items="${movies}">
-							<div class="col-md-3">
-								<div class="card">
-									<img class="card-img-top"
-										src="https://via.placeholder.com/300x200" alt="${movie.movieName}">
-									<div class="card-body">
-										<h5 class="card-title">${movie.movieName}</h5>
-										<p class="card-text">Genre: ${movie.movieGenres}</p>
-										<p class="card-text">Rating: ${movie.movieRated}</p>
-										<a href="/user/movies/${movie.movieId}" class="btn btn-primary">View
-											Details</a>
+							<c:if test="${movie.movieLanguages == 'Hindi'}">
+								<div class="col-md-3 movie-card" data-language="Hindi">
+									<div class="card">
+										<img class="card-img-top" src="${movie.movieThumbnail}"
+											alt="${movie.movieName}">
+										<div class="card-body">
+											<h5 class="card-title">${movie.movieName}</h5>
+											<p class="card-text">Genre: ${movie.movieGenres}</p>
+											<p class="card-text">Rating: ${movie.movieRated}</p>
+											<a href="/user/movies/${movie.movieId}"
+												class="btn btn-primary">View Details</a>
+										</div>
 									</div>
 								</div>
-							</div>
+							</c:if>
 						</c:forEach>
 					</div>
 				</div>
-
-				<!-- English Tab Content -->
+ 
+				<!-- Repeat the same structure for other languages -->
 				<div class="tab-pane fade" id="english" role="tabpanel"
 					aria-labelledby="english-tab">
 					<h3 class="text-center">Latest Releases</h3>
-					<div class="row">
-						<div class="col-md-3">
-							<div class="card">
-								<img src="/images/english-movie1.jpg" class="card-img-top"
-									alt="English Movie 1">
-								<div class="card-body">
-									<h5 class="card-title">Movie Title (English)</h5>
-									<i class="bi bi-star-fill" style="color: yellow;"></i><br /> <a
-										href="#" class="btn btn-primary" style="margin-top: 5px";>Book
-										Now</a>
+					<div class="row" id="english-movies">
+						<!-- Movie Cards for English -->
+						<c:forEach var="movie" items="${movies}">
+							<c:if test="${movie.movieLanguages == 'English'}">
+								<div class="col-md-3 movie-card" data-language="English">
+									<div class="card">
+										<img class="card-img-top" src="${movie.movieThumbnail}"
+											alt="${movie.movieName}">
+										<div class="card-body">
+											<h5 class="card-title">${movie.movieName}</h5>
+											<p class="card-text">Genre: ${movie.movieGenres}</p>
+											<p class="card-text">Rating: ${movie.movieRated}</p>
+											<a href="/user/movies/${movie.movieId}"
+												class="btn btn-primary">View Details</a>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-						<!-- More English Movie Cards can go here -->
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
-
-				<!-- Telugu Tab Content -->
+ 
+				<!-- Repeat the same structure for Telugu and Tamil -->
 				<div class="tab-pane fade" id="telugu" role="tabpanel"
 					aria-labelledby="telugu-tab">
 					<h3 class="text-center">Latest Releases</h3>
-					<div class="row">
-						<div class="col-md-3">
-							<div class="card">
-								<img src="/images/telugu-movie1.jpg" class="card-img-top"
-									alt="Telugu Movie 1">
-								<div class="card-body">
-									<h5 class="card-title">Movie Title (Telugu)</h5>
-									<i class="bi bi-star-fill" style="color: yellow;"></i><br /> <a
-										href="#" class="btn btn-primary" style="margin-top: 5px";>Book
-										Now</a>
+					<div class="row" id="telugu-movies">
+						<c:forEach var="movie" items="${movies}">
+							<c:if test="${movie.movieLanguages == 'Telugu'}">
+								<div class="col-md-3 movie-card" data-language="Telugu">
+									<div class="card">
+										<img class="card-img-top" src="${movie.movieThumbnail}"
+											alt="${movie.movieName}">
+										<div class="card-body">
+											<h5 class="card-title">${movie.movieName}</h5>
+											<p class="card-text">Genre: ${movie.movieGenres}</p>
+											<p class="card-text">Rating: ${movie.movieRated}</p>
+											<a href="/user/movies/${movie.movieId}"
+												class="btn btn-primary">View Details</a>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-						<!-- More Telugu Movie Cards can go here -->
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
-
-				<!-- Tamil Tab Content -->
+ 
 				<div class="tab-pane fade" id="tamil" role="tabpanel"
 					aria-labelledby="tamil-tab">
 					<h3 class="text-center">Latest Releases</h3>
-					<div class="row">
-						<div class="col-md-3">
-							<div class="card">
-								<img src="/images/tamil-movie1.jpg" class="card-img-top"
-									alt="Tamil Movie 1">
-								<div class="card-body">
-									<h5 class="card-title">Movie Title (Tamil)</h5>
-									<i class="bi bi-star-fill" style="color: yellow;"></i><br /> <a
-										href="#" class="btn btn-primary" style="margin-top: 5px";>Book
-										Now</a>
+					<div class="row" id="tamil-movies">
+						<c:forEach var="movie" items="${movies}">
+							<c:if test="${movie.movieLanguages == 'Tamil'}">
+								<div class="col-md-3 movie-card" data-language="Tamil">
+									<div class="card">
+										<img class="card-img-top" src="${movie.movieThumbnail}"
+											alt="${movie.movieName}">
+										<div class="card-body">
+											<h5 class="card-title">${movie.movieName}</h5>
+											<p class="card-text">Genre: ${movie.movieGenres}</p>
+											<p class="card-text">Rating: ${movie.movieRated}</p>
+											<a href="/user/movies/${movie.movieId}"
+												class="btn btn-primary">View Details</a>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-						<!-- More Tamil Movie Cards can go here -->
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-
-
+ 
+ 
+ 
+ 
 	<section id="animated-section" class="container my-5">
-		<div class="row align-items-center">
+		<div class="row align-items-center slider-container">
 			<div class="col-md-6">
 				<h2>Explore Our Featured Movies</h2>
 				<p>Discover exciting films that are gaining popularity!</p>
@@ -308,51 +203,66 @@ footer {
 				<div class="image-container">
 					<img src="/images/bg1.png" class="fly-in-image"
 						alt="Featured Movie 1">
-
+ 
 				</div>
 			</div>
 		</div>
 	</section>
-
-
+ 
+ 
 	<section id="movies" class="container my-5">
 		<h2 class="text-center mb-4">Upcoming Movies</h2>
 		<div class="row">
 			<!-- Movie Card 1 -->
 			<div class="col-md-3 mb-4">
 				<div class="card">
-					<img src="/images/movie1.jpg" class="card-img-top" alt="Movie 1">
+					<img
+						src="https://static.toiimg.com/thumb/imgsize-23456,msid-101385836,width-600,resizemode-4/101385836.jpg"
+						class="card-img-topp" alt="Movie 1">
 					<div class="card-body">
-						<h5 class="card-title">Movie Title 1</h5>
-						<p class="card-text">Release Date: 10th Oct 2021</p>
-						<a href="#" class="btn btn-primary">Book Now</a>
+						<h5 class="card-title">Housefull 5</h5>
+						<p class="card-text">Release Date: 10th Oct 2025</p>
+						<p class="card-text">Language: Hindi</p>
 					</div>
 				</div>
 			</div>
 			<!-- Movie Card 2 -->
 			<div class="col-md-3 mb-4">
 				<div class="card">
-					<img src="/images/movie2.jpg" class="card-img-top" alt="Movie 2">
+					<img src="https://m.media-amazon.com/images/M/MV5BOWM0YTlmZjEtOTA5ZC00MmY0LTk4NjgtNGUyYjAzZTk3ZmMxXkEyXkFqcGc@._V1_.jpg
+				" class="card-img-topp" alt="Movie 2">
 					<div class="card-body">
-						<h5 class="card-title">Movie Title 2</h5>
-						<p class="card-text">Release Date: 15th Oct 2021</p>
-						<a href="#" class="btn btn-primary">Book Now</a>
+						<h5 class="card-title">The RajSaab</h5>
+						<p class="card-text">Release Date: 15th March 2025</p>
+						<p class="card-text">Language: Tamil</p>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-3 mb-4">
+				<div class="card">
+					<img src="https://vice-press.com/cdn/shop/files/jurassic-park-movie-poster-andrew-swainson_grande.jpg?v=1739274335"  class="card-img-topp" alt="Movie 2">
+					<div class="card-body">
+						<h5 class="card-title">Jurassic Park</h5>
+						<p class="card-text">Release Date: 21st April 2025</p>
+						<p class="card-text">Language: English</p>
 					</div>
 				</div>
 			</div>
 			<!-- Add more movies... -->
 		</div>
 	</section>
-
-
-
+ 
+ 
+ 
 	<!-- Footer -->
 	<footer class="bg-dark text-white text-center py-3">
 		<p>&copy; 2025 FindShow. All rights reserved.</p>
 	</footer>
-
-
-
+ 
+ 
+ 
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -363,7 +273,7 @@ footer {
 			var scrollPos = $(window).scrollTop();
 			var sectionOffset = $('#animated-section').offset().top;
 			var windowHeight = $(window).height();
-
+ 
 			if (scrollPos + windowHeight > sectionOffset) {
 				// Add the 'visible' class to images when they come into the viewport
 				$('.fly-in-image').each(function() {
@@ -372,6 +282,6 @@ footer {
 			}
 		});
 	</script>
-
+ 
 </body>
 </html>

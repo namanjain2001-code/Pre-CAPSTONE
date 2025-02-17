@@ -48,16 +48,17 @@
       </button>
 
       <!-- Navbar Links -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <!-- Search Bar on the Left -->
-          <form class="d-flex me-auto" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search for movies..." aria-label="Search">
-            <button class="btn btn-outline-light" type="submit">Search</button>
-          </form>
-        </ul>
-      </div>
-    </div>
+	  <div class="collapse navbar-collapse" id="navbarNav">
+	  				<ul class="navbar-nav ms-auto">
+	  					<form action="/user/searchMovie" method="get">
+	  						<input type="text" name="movieName"
+	  							placeholder="Search for movies..." required />
+	  						<button type="submit">Search</button>
+	  					</form>
+	   
+	  				</ul>
+	  			</div>
+	
   </nav>
 
   <!-- Hero Section for Movie Poster -->
@@ -75,7 +76,7 @@
       <div class="col-md-8">
         <!-- Movie Details -->
         <div class="card mb-4">
-          <img src="https://via.placeholder.com/300x450" class="card-img-top" alt="${movie.movieName}">
+          <img src="${movie.movieThumbnail}" class="card-img-top" alt="${movie.movieName}">
           <div class="card-body">
             <h5 class="card-title">${movie.movieName}</h5>
             <p class="card-text">

@@ -18,8 +18,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.findshow.dto.DateMovie;
+import com.findshow.dto.MovieDto;
+import com.findshow.dto.ScreenDto;
+import com.findshow.dto.ShowDto;
+import com.findshow.dto.TheatreDto;
 import com.findshow.model.Booking;
 import com.findshow.model.Movie;
 import com.findshow.model.Notification;
@@ -83,6 +88,25 @@ public class HomePageController {
 		
 		return "home";
 	}
+	@GetMapping("/searchMovie")
+	public String showSearchMovie(@RequestParam("movieName") String movieName, RedirectAttributes redirectAttributes) {
+	   
+		if (movieName == null || movieName.trim().isEmpty()) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "Movie name cannot be empty");
+	        return "redirect:/user/dashboard";
+	    }
+ 
+	    // Find the movie by its name
+	    Movie movie = movieRepository.findByMovieName(movieName);
+	    if (movie != null) {
+	    	redirectAttributes.addFlashAttribute("movie", movie);
+	    	System.out.print(movie);
+	        return "redirect:/user/movies/" + movie.getMovieId();
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "Movie not found");
+	        return "redirect:/user/dashboard";
+	    }
+	}
 
 	@GetMapping("/movies/{id}")
 	public String showMovieDetails(@PathVariable("id") int id, Model model) {
@@ -104,55 +128,62 @@ Map<String, Object> response = new HashMap<>();
         // Fetch all shows for the specific movie and date
         List<Show> shows = showRepository.findAllByMovie_MovieIdAndShowDate(id, dateMovie.getDate());
         
-        Map<String, Object> theatreData = new HashMap<>();
-        // Process data for each show
+        List<TheatreDto> theaterList = new ArrayList<>();
+
         for (Show show : shows) {
-            // Get the screen and theatre associated with this show
             Screen screen = screenRepository.findByScreenId(show.getScreen().getScreenId());
             Theatre theatre = theatreRepository.findByTheatreId(screen.getTheatre().getTheatreId());
             Movie movie = movieRepository.findByMovieId(show.getMovie().getMovieId());
 
-            // Create a structure without object references
+            // Create movie
+            MovieDto movieDetails = new MovieDto();
+            movieDetails.setMovieName(movie.getMovieName());
+            movieDetails.setMovieDescription(movie.getMovieDescription());
+            movieDetails.setMovieDuration(movie.getMovieDuration());
+            movieDetails.setMovieRated(movie.getMovieRated());
+            movieDetails.setMovieLanguages(movie.getMovieLanguages());
+            movieDetails.setMovieGenres(movie.getMovieGenres());
+            movieDetails.setMovieThumbnail(movie.getMovieThumbnail());
+            movieDetails.setMovieType(movie.getMovieType());
+            movieDetails.setMovieReleaseDate(movie.getMovieReleaseDate());
+            movieDetails.setMovieId(movie.getMovieId());
+            
+            // Create theater
 
 
-            Map<String, Object> movieDetails = new HashMap<>();
-            movieDetails.put("movieId", movie.getMovieId());
-            movieDetails.put("movieName", movie.getMovieName());
-            movieDetails.put("movieDescription", movie.getMovieDescription());
-            movieDetails.put("movieDuration", movie.getMovieDuration());
-            movieDetails.put("movieRated", movie.getMovieRated());
-            movieDetails.put("movieLanguages", movie.getMovieLanguages());
-            movieDetails.put("movieGenres", movie.getMovieGenres());
-            movieDetails.put("movieThumbnail", movie.getMovieThumbnail());
-            movieDetails.put("movieType", movie.getMovieType());
-            movieDetails.put("movieReleaseDate", movie.getMovieReleaseDate().toString());
-            
-            
-            Map<String, Object> showDetails = new HashMap<>();
-            showDetails.put("showId", show.getShowId());
-            showDetails.put("showDate", show.getShowDate().toString());
-            showDetails.put("showTime", show.getShowTime().toString());
-            showDetails.put("movie", movieDetails);
-            
-            
-            Map<String, Object> screenDetails = new HashMap<>();
-            screenDetails.put("screenId", screen.getScreenId());
-            screenDetails.put("screenNumber", screen.getScreenNumber());
-            screenDetails.put("screenCapacity", screen.getScreenCapacity());
-            screenDetails.put("screenType", screen.getScreenType());
-            screenDetails.put("shows", Collections.singletonList(showDetails));
+            ScreenDto screenDetails = new ScreenDto();
+            screenDetails.setScreenId(screen.getScreenId());
+            screenDetails.setScreenNumber(screen.getScreenNumber());
+            screenDetails.setScreenCapacity(screen.getScreenCapacity());
+            screenDetails.setScreenType(screen.getScreenType());
+            screenDetails.setTheatre(screen.getTheatre()); // Assuming the Screen has a Theatre object
 
-            Map<String, Object> theatreDetails = new HashMap<>();
-            theatreDetails.put("theatreName", theatre.getTheatreName());
-            theatreDetails.put("theatreLocation", theatre.getTheatreLocation());
-            theatreDetails.put("noOfScreens", theatre.getNoOfScreens());
-            theatreDetails.put("screens", Collections.singletonList(screenDetails));
+           
 
-            // Create the final response structure
             
-            theatreData.put("theatre", theatreDetails);
+            // Create show
+            TheatreDto theater = new TheatreDto();
+            theater.setTheatreName(theatre.getTheatreName());
+            theater.setTheatreLocation(theatre.getTheatreLocation());
+            theater.setNoOfScreens(theatre.getNoOfScreens());
+            theater.setScreens(Collections.singletonList(screenDetails));
+            
+            ShowDto showDetails = new ShowDto();
+            showDetails.setShowTime(show.getShowTime());
+            showDetails.setShowDate(show.getShowDate());
+            showDetails.setMovie(movieDetails);
+            showDetails.setScreen(screenDetails);
+            showDetails.setShowId(show.getShowId());
+
+            // Create screen
+            screenDetails.setShows(Collections.singletonList(showDetails));
+
+            // Add the theater to the list
+            theaterList.add(theater);
         }
-        model.addAttribute("allShows", theatreData);
+
+        model.addAttribute("allShows", theaterList);
+
 		return "showtimings";
 		
 	}

@@ -10,7 +10,14 @@
  
     <!-- Bootstrap CSS (via CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
-    
+    <style>
+		h4 {
+				           font-size: 30px;
+				           font-weight: 500;
+				           margin-bottom: 20px;
+						   margin-left: 900px;
+				       }
+	</style>
     
 </head>
 <body>
@@ -62,5 +69,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"  crossorigin="anonymous"></script>
  
 </body>
+<h4><a href="/admin/dashboard" class="btn btn-primary">Back to Dashboard</a></h4>
 </html>
 

@@ -67,6 +67,7 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
     		// Convert the array to a list
     		Show show=showRepository.findByShowId(seatDetails.getShow().getShowId());
     		List<String> seatNumberList = Arrays.asList(seatArray);
+    		
     		for (String seat : seatNumberList) {
     		    // Create a new Seat object for each iteration
     		    Seat newSeat = new Seat();
@@ -80,12 +81,18 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
     		    // Add the new seat to the persistedSeats list
     		    persistedSeats.add(newSeat);
     		}
+    		String seatNumbersall="";
     		for(Seat seat:persistedSeats) {
-    			System.out.println(seat.getSeatNumber()+seat.getSeatType()+seat.getShow()+seat.getUser());
+    			seatNumbersall+=seat.getSeatNumber()+",";
     		}
+    		System.out.println(seatNumbersall);
 
     		session.setAttribute("persistedSeats", persistedSeats);
     		model.addAttribute("persistedSeats", persistedSeats);
+    		model.addAttribute("seatNumbers", seatNumbersall.substring(0, seatNumbersall.length()-1));
+    		model.addAttribute("movieName",show.getMovie().getMovieName());
+    		model.addAttribute("theatreName",show.getScreen().getTheatre().getTheatreName() );
+    		model.addAttribute("show", show);
         }
         return "booking-summary"; // This refers to booking-summary.jsp
     		
@@ -95,7 +102,13 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
     @Transactional
     public String proceedToPayment( Model model, HttpSession session) {
     	List<Seat> persistedSeats = (List<Seat>) session.getAttribute("persistedSeats");
+Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         
+        if (authentication != null && authentication.isAuthenticated()) {
+            String currentUserName = authentication.getName();  
+            Users user=userService.findByEmail(currentUserName);
+            model.addAttribute("customerName", user.getName());
+            }
         if (persistedSeats != null) {
             model.addAttribute("persistedSeats", persistedSeats);
             // Add additional details (like customer name, etc.)
@@ -107,10 +120,18 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
             	seats.setBooking(booking);
             	seatsB.add(seats);
             }
+            String seatNumbersall="";
+    		for(Seat seat:persistedSeats) {
+    			seatNumbersall+=seat.getSeatNumber()+",";
+    		}
+    		Show show=showRepository.findByShowId(persistedSeats.get(0).getShow().getShowId());
+    		model.addAttribute("seatNumbers", seatNumbersall.substring(0, seatNumbersall.length()-1));
+    		model.addAttribute("movieName",show.getMovie().getMovieName());
+    		model.addAttribute("theatreName",show.getScreen().getTheatre().getTheatreName() );
+    		model.addAttribute("show", show);
             bookingRepository.save(booking);
             seatRepository.saveAll(seatsB);
         }
-        session.removeAttribute("persistedSeats");
         return "ticket"; // Redirects to the payment page where user enters payment details
     }
  
