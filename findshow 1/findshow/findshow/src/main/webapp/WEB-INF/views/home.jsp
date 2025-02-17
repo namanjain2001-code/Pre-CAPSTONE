@@ -37,7 +37,11 @@
 								placeholder="Search for movies..." required />
 							<button type="submit">Search</button>
 						</form>
-				</ul>
+					</ul>
+					<div class="nav-item">
+					    <button class="btn btn-secondary ml-3" onclick="window.location.href='/user/bookings';">My Bookings</button>
+					</div>
+			
 			</div>
 		</nav>
  

@@ -56,7 +56,7 @@
             background-color: #333;
             color: white;
             padding: 5px;
-            font-size: 12px;
+            font-size: 8px;
             border-radius: 5px;
         }
 
@@ -113,7 +113,7 @@
                                  data-seat="${seat.seatNumber}" 
                                  onclick="selectSeat(this)">
                                 ${seat.seatNumber}
-                                <span class="price-info">₹ </span>
+                                <span class="price-info">₹100</span>
                             </div>
                         </c:forEach>
                     </div>
@@ -169,16 +169,20 @@
 			    }
 		    // Encode selectedSeats for the URL
 		    const selectedSeatsParam = encodeURIComponent(JSON.stringify(selectedSeats));
+			const amount = 100 * selectedSeats.length;
 
+			    // Set the amount in the hidden field
+			    document.getElementById("amount").value = amount;			
+					console.log(amount);
 		    // Update the URL with the selected seats and amount (1000)
-		 const url = `/user/booking-summary?amount=1000`;
+		 const url = `/user/booking-summary?amount=`+amount;
 
 		    // Update the form's action attribute with the new URL
 		  document.getElementById("seatSelectionForm").action = url;
 
 		    // Submit the form with the updated action
 		   document.forms['seatSelectionForm'].submit(); // This targets the form by name
-			console.log(document.getElementById("selectedSeats").value);
+			//console.log(document.getElementById("selectedSeats").value);
 		}
 
 

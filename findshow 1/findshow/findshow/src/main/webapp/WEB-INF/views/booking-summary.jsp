@@ -50,7 +50,7 @@
     </div>
 
     <!-- Button Section -->
-	<form:form action="/user/ticket" method="post" >
+	<form:form action="/user/payment?amount=${amount}" method="post" >
     <div class="text-center mt-4">
         <button  class="btn btn-custom btn-lg" type="submit">Book Ticket</button>
     </div>

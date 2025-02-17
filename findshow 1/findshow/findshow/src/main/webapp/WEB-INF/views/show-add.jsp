@@ -66,21 +66,16 @@
             <label for="time">Show Time</label>
             <form:input path="showTime" id="time" type="time" required="true"/>
         </div>
-		<!--
-			
-		<div class="form-group">
-		    <label for="theatre">Theatre</label>
-		    <form:select path="show.movie" id="theatre" required="true">
-		        <c:forEach items="${movies}" var="movie">
-		            <option value="${movie.movieId}">${movie.movieName}</option>
-		        </c:forEach>
-		    </form:select>
-		</div>
-		-->
 		<div class="form-group">
 		            <label for="eventDate">Show Date</label>
 		            <form:input type="date" path="showDate" id="eventDate" required="true" />
-		        </div>
+		  </div>
+		  <div class="form-group">
+		              <label for="movie">Movie</label>
+		              <form:select path="movie.movieId">
+		                  <form:options items="${movies}" itemValue="movieId" itemLabel="movieName" />
+		              </form:select>
+		   </div>
 
         <button type="submit">Add Show</button>
     </form:form>

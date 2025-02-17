@@ -208,15 +208,15 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h3>Super Admin Dashboard</h3>
-        <a href="<c:url value='/admin/movie/add' />" class="active">Add Movie</a>
-        <a href="<c:url value='/admin/theatre/add' />">Add Theatre</a>
-        <a href="<c:url value='/admin/screen/add' />">Add Screen</a>
-        <a href="<c:url value='/admin/show/add' />">Add Show</a>
-        <a href="<c:url value='/admin/bookings' />">Manage Bookings</a>
-        <a href="<c:url value='/admin/movies' />">Movie List</a>
-        <a href="<c:url value='/admin/theatres' />">Theatre List</a>
-        <a href="<c:url value='/admin/shows' />">Shows List</a>
-        <a href="<c:url value='/admin/screens' />">Screen List</a>
+        <a href="<c:url value='/superadmin/movie/add' />" class="active">Add Movie</a>
+        <a href="<c:url value='/superadmin/theatre/add' />">Add Theatre</a>
+        <a href="<c:url value='/superadmin/screen/add' />">Add Screen</a>
+        <a href="<c:url value='/superadmin/show/add' />">Add Show</a>
+        <a href="<c:url value='/superadmin/bookings' />">Manage Bookings</a>
+        <a href="<c:url value='/superadmin/movies' />">Movie List</a>
+        <a href="<c:url value='/superadmin/theatres' />">Theatre List</a>
+        <a href="<c:url value='/superadmin/shows' />">Shows List</a>
+        <a href="<c:url value='/superadmin/screens' />">Screen List</a>
        
         <h4> <a href="/logout" style="color: red; class="btn-primary">Logout</a></h4>
     </div>

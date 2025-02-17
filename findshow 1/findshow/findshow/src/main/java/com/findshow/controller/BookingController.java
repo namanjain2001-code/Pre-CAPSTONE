@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -51,9 +52,9 @@ public class BookingController {
   
     
     @PostMapping("/user/booking-summary")
-    public String submitBookingSummary(@ModelAttribute("seats") Seat seatDetails,Model model
+    public String submitBookingSummary(@ModelAttribute("seats") Seat seatDetails,@Param("amount")int amount,Model model
     		,HttpSession session) {
-Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
         
         if (authentication != null && authentication.isAuthenticated()) {
             String currentUserName = authentication.getName();  
@@ -93,14 +94,23 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
     		model.addAttribute("movieName",show.getMovie().getMovieName());
     		model.addAttribute("theatreName",show.getScreen().getTheatre().getTheatreName() );
     		model.addAttribute("show", show);
+    		model.addAttribute("amount", amount);
         }
         return "booking-summary"; // This refers to booking-summary.jsp
     		
     }
  
+    @PostMapping("/user/payment")
+    public String getpayment(Model model,@Param("amount")int amount) {
+    	int  x = 100;
+    	model.addAttribute("amount",amount);
+    	return "payment";
+    }
+    
+    
     @PostMapping("/user/ticket")
     @Transactional
-    public String proceedToPayment( Model model, HttpSession session) {
+    public String proceedToPayment( Model model, HttpSession session,@Param("amount")int amount) {
     	List<Seat> persistedSeats = (List<Seat>) session.getAttribute("persistedSeats");
 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         
@@ -129,6 +139,7 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
     		model.addAttribute("movieName",show.getMovie().getMovieName());
     		model.addAttribute("theatreName",show.getScreen().getTheatre().getTheatreName() );
     		model.addAttribute("show", show);
+    		model.addAttribute("amount",amount);
             bookingRepository.save(booking);
             seatRepository.saveAll(seatsB);
         }

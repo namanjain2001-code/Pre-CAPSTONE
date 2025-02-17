@@ -28,6 +28,7 @@ public class ShowController {
     @Autowired
     private MovieRepository movieRepository;
     
+    
     @Autowired
 	private ScreenService screenService;
     
@@ -40,14 +41,16 @@ public class ShowController {
     // Show all shows
     @GetMapping("/shows")
     public String listShows(Model model) {
-Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         
         if (authentication != null && authentication.isAuthenticated()) {
             String currentUserName = authentication.getName(); 
             int userId=userService.findByEmail(currentUserName).getUserId();
+
             model.addAttribute("shows", showService.getShowsAndTheatresAndScreensByUserId(userId));
-            System.out.print( showService.getShowsAndTheatresAndScreensByUserId(userId));
         }
+        
+        
         return "show-list";  // View name
     }
 
@@ -56,13 +59,13 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
     public String showAddShowForm(Model model) {
         model.addAttribute("show", new Show());
         model.addAttribute("screens", screenRepository.findAll());
+        model.addAttribute("movies", movieRepository.findAll());
         return "show-add";  // View name
     }
 
     @PostMapping("/show/add")
-    public String addShow(@ModelAttribute Show show,Model model) {
+    public String addShow(@ModelAttribute Show show) {
         showRepository.save(show);
-        model.addAttribute("movies", movieRepository.findAll());
         return "redirect:/admin/shows";  // Redirect to show list after adding
     }
 

@@ -16,7 +16,6 @@
     </style>
 </head>
 <body>
-
 <div class="container mt-5">
     <h2 class="text-center mb-4">Show and Screen Details</h2>
 
@@ -32,22 +31,22 @@
         </thead>
         <tbody>
             <!-- Iterate over the screenShowsMap -->
-            <c:forEach items="${shows}" var="entry">
+            <c:forEach var="show" items="${shows}" >
                 <!-- Extract Screen and its Shows -->
-                <c:forEach items="${entry.value}" var="show">
+                
                     <tr>
                         <!-- Display show details -->
                         <td>${show.showTime}</td>
                         <td>${show.showDate}</td>
-                        <td>${entry.key.screenNumber}</td>
-                        <td>${empty show.movie.movieName ? '' : show.movie.movieName}</td>
+                        <td>${show.screen.screenNumber}</td>
+                        <td>${show.movie.movieName}</td>
                         <td>
-                            <!-- Add any actions like Edit, Delete if necessary -->
+                            
                             <a href="/admin/show/edit/${show.showId}" class="btn btn-primary btn-sm">Edit</a> 
                             <a href="/admin/show/delete/${show.showId}" class="btn btn-danger btn-sm ml-2">Delete</a>
                         </td>
                     </tr>
-                </c:forEach>
+               
             </c:forEach>
         </tbody>
     </table>

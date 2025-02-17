@@ -28,12 +28,7 @@ public class AdminController {
 	
 	
 	
-	@RequestMapping("/revenuedashboard")
-	public String viewAdmins(Model model) {
-		List<UserDto> users=userService.findAllUsers();
-		model.addAttribute("users",users);
-		return "adminrevenue";
-	}
+
     
     
 

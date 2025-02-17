@@ -32,10 +32,10 @@
     </style>
 </head>
 <body>
-
+ 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Payment Details</h2>
-
+ 
     <!-- Payment Method Selection -->
     <div class="payment-methods">
         <h4>Choose Payment Method</h4>
@@ -46,19 +46,19 @@
             </label>
         </div>
     </div>
-
+ 
     <!-- Payment Form -->
     <div class="mt-4">
         <h4>Enter Payment Details</h4>
-        <form:form action="/payment-success" method="POST">
-
+        <form:form action="/user/ticket?amount=${amount}" method="POST">
+ 
             <!-- Hidden inputs to pass bookingId and amount -->
             <input type="hidden" name="bookingId" value="${bookingId}">
             <input type="hidden" name="amount" value="${amount}">
-
+ 
             <!-- Payment Method (Credit/Debit Card) -->
             <input type="hidden" name="paymentMethod" value="creditCard">
-
+ 
             <!-- Card Payment Form -->
             <div id="cardPaymentFields">
                 <div class="form-group">
@@ -83,17 +83,17 @@
                            title="CVV should be 3 digits">
                 </div>
             </div>
-
+ 
             <!-- Submit Button -->
             <button type="submit" class="btn btn-custom btn-lg btn-block mt-4">Pay ₹${amount}</button>
         </form:form>
     </div>
 </div>
-
+ 
 <!-- Bootstrap JS and Popper.js -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+ 
 </body>
 </html>

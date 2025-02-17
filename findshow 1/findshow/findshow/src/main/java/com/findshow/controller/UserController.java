@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.findshow.model.Movie;
 import com.findshow.model.Notification;
 import com.findshow.model.Role;
 import com.findshow.model.Role.RoleName;
+import com.findshow.repository.BookingRepository;
 import com.findshow.repository.MovieRepository;
 import com.findshow.repository.NotificationRepository;
 import com.findshow.model.Users;
@@ -39,6 +42,8 @@ public class UserController {
 	private NotificationService notificationService;
 	@Autowired
 	private NotificationRepository notificationRepository;
+	@Autowired
+	private BookingRepository bookingService;
     
     @GetMapping("/register")
     public String registerUser(Model model) {
@@ -77,6 +82,20 @@ public class UserController {
             notificationRepository.save(notification);
 		}
         return "redirect:/user/dashboard";  // Redirect to dashboard after successful registration
+    }
+    @GetMapping("/user/bookings")
+    public String getAllBookings(Model model) {
+        // Fetch all bookings from the service
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (authentication != null && authentication.isAuthenticated()) {
+            String currentUserName = authentication.getName();  
+            int userId=userService.findByEmail(currentUserName).getUserId();
+
+            model.addAttribute("bookings", bookingService.findAllBySeats_UserUserId(userId));
+            model.addAttribute("currentUserId", userId);
+        }
+        return "booking-list";  // Display bookings on the dashboard page
     }
 
     
