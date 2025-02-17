@@ -22,3 +22,16 @@ Clone the repository to your local machine using the following command:
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/Pre-CAPSTONE.git
+
+
+### 3.  Open your IDE (Spring Tool Suite or any other IDE you are using).
+### 4.  Go to Import Project.
+### 5.  Select Maven Project.
+### 6.  Browse and select the path for the cloned directory.
+### 7.  Build the pom.xml file.
+### 8.  Run the dataSetup/setup.sql script in MySQL.
+### 9.  Edit the password in the application.properties file according to your setup.
+### 10. Click on Run Configurations.
+### 11. Select Java Application.
+### 12. Choose the main class file and project.
+### 13. Your project should run.
